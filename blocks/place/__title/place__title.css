@@ -11,3 +11,8 @@
   white-space: nowrap; /* new */
   overflow: hidden; /* new */
 }
+@media screen and (min-width: 380px) {
+  .place__title {
+    max-width: 500px;
+  }
+}
