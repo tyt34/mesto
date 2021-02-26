@@ -8,4 +8,4 @@
 
 Файловая структура - **nested БЭМ**.
 ***
-https://github.com/tyt34/mesto
+https://tyt34.github.io/mesto/
