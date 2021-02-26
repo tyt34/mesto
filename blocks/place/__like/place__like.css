@@ -1,0 +1,19 @@
+.place__like {
+  background-image: url("../../../images/like.svg");
+  width: 22px;
+  height: 19px;
+  padding: 0;
+  border: 0;
+  margin-top: 30px;
+  margin-bottom: 31px;
+  margin-left: 10px;
+  overflow: hidden;
+  /*z-index: 2;*/
+}
+.place__like:active {
+  background-image: url("../../../images/like_a.svg");
+}
+.place__like:hover {
+  background-image: url("../../../images/like_h.svg");
+  cursor: pointer;
+}

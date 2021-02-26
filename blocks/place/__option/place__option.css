@@ -1,0 +1,7 @@
+.place__option {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  margin-top: -3px;
+  border-radius: 0 0 10px 10px;
+}

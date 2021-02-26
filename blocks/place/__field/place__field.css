@@ -1,0 +1,9 @@
+.place__field {
+  display: flex;
+  width: calc(100% - 40px);
+  margin-left: auto;
+  margin-right: auto;
+  text-overflow: ellipsis; /* new */
+  white-space: nowrap; /* new */
+  overflow: hidden; /* new */
+}

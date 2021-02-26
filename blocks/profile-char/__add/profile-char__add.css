@@ -1,0 +1,14 @@
+.profile-char__add {
+  margin-top: 36px;
+}
+.profile-char__add:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+@media screen and (min-width: 768px) {
+  .profile-char__add {
+    width: 150px;
+    height: 50px;
+    margin-top: 0;
+  }
+}

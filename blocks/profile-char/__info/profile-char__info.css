@@ -1,0 +1,15 @@
+.profile-char__info {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  margin-top: 22.25px;
+  margin-bottom: 14px;
+}
+
+@media screen and (min-width: 768px) {
+  .profile-char__info {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
