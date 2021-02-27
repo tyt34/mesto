@@ -1,19 +1,18 @@
 .place__like {
-  background-image: url("../../../images/like.svg");
+  background: url("../../../images/like.svg") 100% 100% no-repeat;
   width: 22px;
   height: 19px;
   padding: 0;
   border: 0;
-  margin-top: 30px;
+  min-width: 22px; /* без нее экран перекрывал иконку*/
+  margin-top: 25px;
   margin-bottom: 31px;
-  margin-left: 10px;
-  overflow: hidden;
-  /*z-index: 2;*/
 }
 .place__like:active {
   background-image: url("../../../images/like_a.svg");
 }
 .place__like:hover {
-  background-image: url("../../../images/like_h.svg");
+  /*background-image: url("../../../images/like_h.svg");*/
+  opacity: 0.5;
   cursor: pointer;
 }

@@ -8,6 +8,7 @@
 @media screen and (min-width: 768px) {
   .profile-char__discr {
     align-items: flex-start;
+    align-content: flex-start;
     margin-left: 30px;
     margin-right: 0;
   }

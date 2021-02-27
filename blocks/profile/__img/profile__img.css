@@ -1,4 +1,4 @@
-.profile-img {
+.profile__img {
   width: 120px;
   height: 100%;
   margin-top: 38.25px;
@@ -7,7 +7,7 @@
   margin-right: auto;
 }
 @media screen and (min-width: 768px) {
-  .profile-img {
+  .profile__img {
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;

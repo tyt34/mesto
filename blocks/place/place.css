@@ -5,6 +5,7 @@
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
+  overflow: hidden; /*из за неё экран перестало распирать*/
 }
 .place:last-child {
   margin-bottom: 0;

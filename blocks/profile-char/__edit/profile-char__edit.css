@@ -1,7 +1,12 @@
 .profile-char__edit {
+  background: url("../../../images/edit.svg") 100% 100% no-repeat;
   margin-left: 10px;
   width: 18px;
   height: 18px;
+  background-position: center;
+  padding: 0;
+  border: 0;
+  /*border: 1px solid #FFFFFF;*/
 }
 .profile-char__edit:hover {
   opacity: 0.6;
