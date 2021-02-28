@@ -7,21 +7,26 @@ let inputUp = document.getElementById('popup-up')
 let inputDo = document.getElementById('popup-do')
 let formSav = document.querySelector('.popup__form')
 
-closeBt.addEventListener('click' , togglePopup)
-showBt.addEventListener('click' , togglePopup)
+closeBt.addEventListener('click' , closePopup)
+showBt.addEventListener('click' , openPopup)
 formSav.addEventListener('submit', savePopup)
 
-function togglePopup(event) {
-  //console.log('Open or Close popup')
+function closePopup(event) {
+  console.log('Close popup')
+  popup.classList.toggle('popup_open')
+}
+
+function openPopup(event) {
+  console.log('Open popup')
   inputUp.value = textup.textContent
   inputDo.value = textdo.textContent
   popup.classList.toggle('popup_open')
 }
 
 function savePopup(event) {
-  //console.log('Save popup and close popup')
+  console.log('Save popup')
   event.preventDefault()
   textup.textContent = inputUp.value
   textdo.textContent = inputDo.value
-  togglePopup()
+  closePopup()
 }
