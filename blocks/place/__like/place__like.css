@@ -9,7 +9,7 @@
   margin-bottom: 31px;
 }
 .place__like:active {
-  background-image: url("../../../images/like_a.svg");
+  /*background-image: url("../../../images/like_a.svg");*/
 }
 .place__like:hover {
   /*background-image: url("../../../images/like_h.svg");*/

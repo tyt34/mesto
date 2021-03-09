@@ -6,15 +6,11 @@
   margin-right: auto;
   margin-bottom: 20px;
   overflow: hidden; /*из за неё экран перестало распирать*/
+  position: relative;
 }
 .place:last-child {
   margin-bottom: 0;
 }
-/*
-.place__like {
-  margin-left: 20px;
-}
-*/
 @media screen and (min-width: 780px) {
   .place {
     width: 100%;

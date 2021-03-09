@@ -1,0 +1,17 @@
+.place__del {
+  position: absolute;
+  /*display: block;*/
+  right: 15px;
+  top: 18px;
+  background: url("../../../images/del.svg") 100% 100% no-repeat;
+  min-width: 18;
+  /*height: 19.3px;*/
+  /*height: 100%;*/
+  padding: 10px 9px 10px 9px;
+  border: 1px;
+  cursor: pointer;
+}
+
+.place__del:hover {
+  opacity: 0.6;
+}
