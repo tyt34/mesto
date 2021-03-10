@@ -40,8 +40,8 @@
         <button id="popup-edit__close" class="popup__close" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form" action="index.html" method="post" name="discription">
-          <input id="popup-up" class="popup__input" name="name" type="text" value="" placeholder="Введите наименование =>">
-          <input id="popup-dw" class="popup__input" name="kind" type="text" value="" placeholder="Введите род деятельности =>">
+          <input id="input-title" class="popup__input" name="name" type="text" value="" placeholder="Введите наименование =>">
+          <input id="input-subtitle" class="popup__input" name="kind" type="text" value="" placeholder="Введите род деятельности =>">
           <button id="popup-edit__save" class="popup__save" type="submit">
             Сохранить
           </button>
@@ -55,8 +55,8 @@
         <button id="popup-add__close" class="popup__close" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
         <form id="popup-add__form" class="popup__form" action="index.html" method="post" name="discription">
-          <input id="popup-add-up" class="popup__input" name="name" type="text" value="" placeholder="Название">
-          <input id="popup-add-dw" class="popup__input" name="kind" type="text" value="" placeholder="Ссылка на картинку">
+          <input id="popup-add-title" class="popup__input" name="name" type="text" value="" placeholder="Название">
+          <input id="popup-add-link" class="popup__input" name="kind" type="text" value="" placeholder="Ссылка на картинку">
           <button id="popup-add__save" class="popup__save" type="submit">
             Создать
           </button>
@@ -66,7 +66,7 @@
 
     <div class="popup-img">
       <div class="popup-img__container">
-        <img class="popup-img__img" src="Test" alt="Test">
+        <img class="popup-img__img" src="./images/logo.svg" alt="Test">
         <p class="popup-img__title">Test</p>
         <button class="popup-img__close"></button>
       </div>
@@ -74,7 +74,7 @@
 
     <template class="template">
       <article class="place">
-        <img class="place__img" src="Test" alt="Test">
+        <img class="place__img" src="./images/logo.svg" alt="Test">
         <button class="place__del" type="button"></button>
         <div class="place__option">
             <h2 class="place__title">Test</h2>
@@ -82,7 +82,7 @@
         </div>
       </article>
     </template>
-
+    <script src="./scripts/initial-сards.js"></script>
     <script src="./scripts/script.js"></script>
   </body>
 </html>

@@ -1,126 +1,95 @@
-const ARRPics = [
-  {
-    title: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    title: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    title: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    title: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    title: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    title: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-//https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg
-const templateElement = document.querySelector('.template');
-let showBt  = document.querySelector('.profile-char__edit')
-//let popup   = document.querySelector('.popup')
-let popup   = document.getElementById('popup-edit')
-//let closeBt = document.querySelector('.popup__close')
-let closeBt = document.getElementById('popup-edit__close')
-let textup  = document.querySelector('.profile-char__title')
-let textdw  = document.querySelector('.profile-char__subtitle')
-let inputUp = document.getElementById('popup-up')
-let inputDw = document.getElementById('popup-dw')
-let formSav = document.querySelector('.popup__form') // форма попапа редактирования профиля
-//let popupAdd    = document.querySelector('.popup-add')
-let popupAdd    = document.getElementById('popup-add')
-let addNewPlace = document.querySelector('.profile-char__add')
-let closeAddBt  = document.getElementById('popup-add__close')
+const templateElement = document.querySelector('.template')
 const container = document.querySelector('.places')
-let popupForImg = document.querySelector('.popup-img')
-let popupImg    = document.querySelector('.popup-img__img')
-let popupImgTit = document.querySelector('.popup-img__title')
-let popupImgCls = document.querySelector('.popup-img__close')
-let formNewCard = document.getElementById('popup-add__form')
-let formAddUp = document.getElementById('popup-add-up')
-let formAddDw = document.getElementById('popup-add-dw')
-let img
-let butLike
-let butDel
-//let img
+let popupEdit       = document.getElementById('popup-edit')
+let buttonEditOpen  = document.querySelector('.profile-char__edit')
+let buttonEditClose = document.getElementById('popup-edit__close')
+let editTitle       = document.querySelector('.profile-char__title')
+let editSubtit      = document.querySelector('.profile-char__subtitle')
+let inputEditTitle  = document.getElementById('input-title')
+let inputEditSubtit = document.getElementById('input-subtitle')
+let formEditSave    = document.querySelector('.popup__form')
+let popupAdd       = document.getElementById('popup-add')
+let buttonAddOpen  = document.querySelector('.profile-char__add')
+let buttonAddClose = document.getElementById('popup-add__close')
+let inputAddTitle  = document.getElementById('popup-add-title')
+let inputAddLink   = document.getElementById('popup-add-link')
+let formAdd        = document.getElementById('popup-add__form')
+let popupImg      = document.querySelector('.popup-img')
+let imgInPopupImg = document.querySelector('.popup-img__img')
+let descrPopupImg = document.querySelector('.popup-img__title')
+let popupImgClose = document.querySelector('.popup-img__close')
+let imgs
+let buttonsLike
+let buttonsDel
 
 renderList()
 renderButtons()
-//console.log(img)
-//console.log(butLike)
-//console.log(butDel)
-formSav.addEventListener('submit', editProfile.bind(null, popup))
-showBt.addEventListener('click', openPopup.bind(null, 1, popup))
-addNewPlace.addEventListener('click', openPopup.bind(null, 0, popupAdd))
-closeBt.addEventListener('click', closePopup.bind(null, popup))
-closeAddBt.addEventListener('click', closePopup.bind(null, popupAdd))
-popupImgCls.addEventListener('click', closePopup.bind(null, popupForImg))
-formNewCard.addEventListener('submit', createCard.bind(null, popup))
+buttonEditOpen.addEventListener('click', openPopupEdit)
+buttonAddOpen.addEventListener('click', openPopupAdd)
+formEditSave.addEventListener('submit', editProfile)
+buttonEditClose.addEventListener('click', closePopupEdit)
+buttonAddClose.addEventListener('click', closePopupAdd)
+popupImgClose.addEventListener('click', closePopupImg)
+formAdd.addEventListener('submit', submitAddCardForm)
 
 function renderButtons() {
-  butLike = document.querySelectorAll('.place__like')
-  butDel = document.querySelectorAll('.place__del')
-  img = document.querySelectorAll('.place__img')
-
-  img.forEach((item, i) => {
-    item.addEventListener('click', openImg.bind(null, item))
+  buttonsLike = document.querySelectorAll('.place__like')
+  buttonsDel = document.querySelectorAll('.place__del')
+  imgs = document.querySelectorAll('.place__img')
+  imgs.forEach((item, i) => {
+    item.addEventListener('click', openImg)
   })
-
-  butLike.forEach((item, i) => {
-    item.addEventListener('click', createLike.bind(null, item))
+  buttonsLike.forEach((item, i) => {
+    item.addEventListener('click', createLike)
   })
-
-  butDel.forEach((item, i) => {
-    item.addEventListener('click', doDel.bind(null, item))
+  buttonsDel.forEach((item, i) => {
+    item.addEventListener('click', doDel)
   })
 }
 
-
-function doDel(item, event) {
+function doDel(event) {
   const target = event.target;
 	const currentCard = target.closest('.place');
-  //console.log(1,' ',event);
-  //console.log(2,' ',target);
-  //console.log(3,' ',currentCard);
 	currentCard.remove();
 }
 
-function createLike(item, event) {
-  //console.log(event);
-  item.classList.toggle('place-like')
+function createLike(event) {
+  const target = event.target;
+  target.classList.toggle('place-like')
 }
 
-function openImg(item, event) {
-  let textThisImg = item.parentNode.querySelector('.place__title').textContent
-  //console.log(item);
-  popupImgTit.textContent = textThisImg
-  popupImg.src = item.src
-  popupForImg.alt = item.alt
-  popupForImg.classList.toggle('popup_open')
+function openImg(event) {
+  const target = event.target;
+  let textThisImg = target.parentNode.querySelector('.place__title').textContent
+  descrPopupImg.textContent = textThisImg
+  imgInPopupImg.src = target.src
+  popupImg.alt = target.alt
+  popupImg.classList.toggle('popup_open')
 }
 
-function closePopup(typPop, event) {
-  //console.log('Close popup ',typPop)
-  typPop.classList.toggle('popup_open')
+function closePopupImg(event) {
+  popupImg.classList.toggle('popup_open')
 }
 
-function openPopup(char, typPop, event) {
-  //console.log('This - ',char,' and this - ',typPop);
-  if (char === 1) inputUp.value = textup.textContent
-  if (char === 1) inputDw.value = textdw.textContent
-  typPop.classList.toggle('popup_open')
+function closePopupAdd(event) {
+  popupAdd.classList.toggle('popup_open')
 }
 
-function createCardDomNode(item){
+function closePopupEdit(event) {
+  popupEdit.classList.toggle('popup_open')
+}
+
+function openPopupEdit(event) {
+  inputEditTitle.value = editTitle.textContent
+  inputEditSubtit.value = editSubtit.textContent
+  popupEdit.classList.toggle('popup_open')
+}
+
+function openPopupAdd(event) {
+  popupAdd.classList.toggle('popup_open')
+}
+
+function createCard(item){
 	const newItem = templateElement.content.cloneNode(true);
   const picTemplate = newItem.querySelector('.place__img');
   const textTemplate = newItem.querySelector('.place__title');
@@ -132,27 +101,23 @@ function createCardDomNode(item){
 
 function renderList() {
 	const result = ARRPics.map(function(item) {
-		const newCard = createCardDomNode(item);
+		const newCard = createCard(item);
 		return newCard;
 	});
 	container.append(...result)
 }
 
-function editProfile(typPop, event) {
-  console.log('Save popup and ',typPop)
+function editProfile(event) {
   event.preventDefault()
-  textup.textContent = inputUp.value
-  textdw.textContent = inputDw.value
-  closePopup(typPop)
+  editTitle.textContent = inputEditTitle.value
+  editSubtit.textContent = inputEditSubtit.value
+  closePopupEdit(event)
 }
 
-function createCard(typPop, event) {
-  //console.log('Create card and ', typPop)
+function submitAddCardForm(event) {
   event.preventDefault()
-  //console.log(formAddUp.value)
-  //console.log(formAddDw.value)
-  //console.log({title:formAddUp.value, link:formAddDw.value})
-  let addNewCard = createCardDomNode({title:formAddUp.value, link:formAddDw.value})
+  let addNewCard = createCard({title:inputAddTitle.value, link:inputAddLink.value})
   container.prepend(addNewCard)
   renderButtons()
+  closePopupAdd(event)
 }
