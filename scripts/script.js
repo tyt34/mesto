@@ -21,11 +21,19 @@ const popupImgClose = document.querySelector('.popup-img__close')
 
 renderList()
 buttonEditOpen.addEventListener('click', openPopupEdit)
-buttonAddOpen.addEventListener('click', openPopupAdd)
+buttonAddOpen.addEventListener('click', () => {
+  popupAdd.classList.toggle('popup_open')
+})
 formEditSave.addEventListener('submit', editProfile)
-buttonEditClose.addEventListener('click', closePopupEdit)
-buttonAddClose.addEventListener('click', closePopupAdd)
-popupImgClose.addEventListener('click', closePopupImg)
+buttonEditClose.addEventListener('click', () => {
+  popupEdit.classList.toggle('popup_open')
+})
+buttonAddClose.addEventListener('click', () => {
+  popupAdd.classList.toggle('popup_open')
+})
+popupImgClose.addEventListener('click', () => {
+  popupImg.classList.toggle('popup_open')
+})
 formAdd.addEventListener('submit', submitAddCardForm)
 
 function doDel(event) {
@@ -48,26 +56,10 @@ function openImg(event) {
   popupImg.classList.toggle('popup_open')
 }
 
-function closePopupImg(event) {
-  popupImg.classList.toggle('popup_open')
-}
-
-function closePopupAdd(event) {
-  popupAdd.classList.toggle('popup_open')
-}
-
-function closePopupEdit(event) {
-  popupEdit.classList.toggle('popup_open')
-}
-
 function openPopupEdit(event) {
   inputEditTitle.value = editTitle.textContent
   inputEditSubtit.value = editSubtit.textContent
   popupEdit.classList.toggle('popup_open')
-}
-
-function openPopupAdd(event) {
-  popupAdd.classList.toggle('popup_open')
 }
 
 function createCard(item){
@@ -98,12 +90,31 @@ function editProfile(event) {
   event.preventDefault()
   editTitle.textContent = inputEditTitle.value
   editSubtit.textContent = inputEditSubtit.value
-  closePopupEdit(event)
+  popupEdit.classList.toggle('popup_open')
 }
 
 function submitAddCardForm(event) {
   event.preventDefault()
   let addNewCard = createCard({title:inputAddTitle.value, link:inputAddLink.value})
   container.prepend(addNewCard)
-  closePopupAdd(event)
+  popupAdd.classList.toggle('popup_open')
 }
+
+/*
+function closePopupImg(event) {
+  console.log('1 ',event);
+  popupImg.classList.toggle('popup_open')
+}
+function closePopupAdd(event) {
+  console.log('2 ',event);
+  popupAdd.classList.toggle('popup_open')
+}
+function closePopupEdit(event) {
+  console.log('3 ',event);
+  popupEdit.classList.toggle('popup_open')
+}
+function openPopupAdd(event) {
+  console.log('4 ',event);
+  popupAdd.classList.toggle('popup_open')
+}
+*/
