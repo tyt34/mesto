@@ -18,12 +18,8 @@ const popupImg      = document.querySelector('.popup-img')
 const imgInPopupImg = document.querySelector('.popup-img__img')
 const descrPopupImg = document.querySelector('.popup-img__title')
 const popupImgClose = document.querySelector('.popup-img__close')
-let imgs
-let buttonsLike
-let buttonsDel
 
 renderList()
-renderButtons()
 buttonEditOpen.addEventListener('click', openPopupEdit)
 buttonAddOpen.addEventListener('click', openPopupAdd)
 formEditSave.addEventListener('submit', editProfile)
@@ -31,21 +27,6 @@ buttonEditClose.addEventListener('click', closePopupEdit)
 buttonAddClose.addEventListener('click', closePopupAdd)
 popupImgClose.addEventListener('click', closePopupImg)
 formAdd.addEventListener('submit', submitAddCardForm)
-
-function renderButtons() {
-  buttonsLike = document.querySelectorAll('.place__like')
-  buttonsDel = document.querySelectorAll('.place__del')
-  imgs = document.querySelectorAll('.place__img')
-  imgs.forEach((item, i) => {
-    item.addEventListener('click', openImg)
-  })
-  buttonsLike.forEach((item, i) => {
-    item.addEventListener('click', createLike)
-  })
-  buttonsDel.forEach((item, i) => {
-    item.addEventListener('click', doDel)
-  })
-}
 
 function doDel(event) {
   const target = event.target;
@@ -96,11 +77,17 @@ function createCard(item){
   picTemplate.src = item.link
   picTemplate.alt = 'Изображение места: "'+item.title+'"'
   textTemplate.textContent = item.title
+  const buttonLike = newItem.querySelector('.place__like')
+  const buttonDel = newItem.querySelector('.place__del')
+  const img = newItem.querySelector('.place__img')
+  buttonLike.addEventListener('click', createLike)
+  buttonDel.addEventListener('click', doDel)
+  img.addEventListener('click', openImg)
 	return newItem;
 }
 
 function renderList() {
-	const result = ARRPics.map(function(item) {
+	const result = initialCards.map(function(item) {
 		const newCard = createCard(item);
 		return newCard;
 	});
@@ -118,6 +105,5 @@ function submitAddCardForm(event) {
   event.preventDefault()
   let addNewCard = createCard({title:inputAddTitle.value, link:inputAddLink.value})
   container.prepend(addNewCard)
-  renderButtons()
   closePopupAdd(event)
 }
