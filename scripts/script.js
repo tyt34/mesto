@@ -21,15 +21,12 @@ const popupImgClose = document.querySelector('.popup-img__close')
 
 renderList()
 buttonEditOpen.addEventListener('click', openPopupEdit)
-buttonAddOpen.addEventListener('click', togglePopup(popupAdd));
 formEditSave.addEventListener('submit', editProfile)
-buttonEditClose.addEventListener('click', togglePopup(popupEdit));
-buttonAddClose.addEventListener('click', togglePopup(popupAdd));
-popupImgClose.addEventListener('click', togglePopup(popupImg));
+buttonAddOpen.addEventListener('click', () => togglePopup(popupAdd));
+buttonEditClose.addEventListener('click', () => togglePopup(popupEdit));
+buttonAddClose.addEventListener('click', () => togglePopup(popupAdd));
+popupImgClose.addEventListener('click', () => togglePopup(popupImg));
 formAdd.addEventListener('submit', submitAddCardForm)
-
-//togglePopup(popupEdit)
-//togglePopup(popupImg)
 
 function togglePopup(popup) {
   popup.classList.toggle('popup_open')
