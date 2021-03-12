@@ -5,11 +5,11 @@ const initialCards = [
   },
   {
     title: 'Ленин жил, Ленин жив, Ленин будет жить!',
-    link: 'http://morpolit.milportal.ru/wp-content/2020/04/%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD-6-777x437.jpg'
+    link: 'http://www.ruskniga.com/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/c/c/cccp.jpg'
   },
   {
     title: 'Ленин провозглашает Советскую Власть',
-    link: 'http://petroart.ru/art/s/serov-v-a/img/6.jpg'
+    link: 'https://rossaprimavera.ru/static/files/23cfd7cf.jpg'
   },
   {
     title: 'Памятник Ленину В.И.на Московской площади',
