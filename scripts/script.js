@@ -28,8 +28,8 @@ buttonAddClose.addEventListener('click', togglePopup(popupAdd));
 popupImgClose.addEventListener('click', togglePopup(popupImg));
 formAdd.addEventListener('submit', submitAddCardForm)
 
-togglePopup(popupEdit)
-togglePopup(popupImg)
+//togglePopup(popupEdit)
+//togglePopup(popupImg)
 
 function togglePopup(popup) {
   popup.classList.toggle('popup_open')
@@ -52,13 +52,13 @@ function openImg(event) {
   descrPopupImg.textContent = textThisImg
   imgInPopupImg.src = target.src
   popupImg.alt = target.alt
-  popupImg.classList.toggle('popup_open')
+  togglePopup(popupImg)
 }
 
 function openPopupEdit(event) {
   inputEditTitle.value = editTitle.textContent
   inputEditSubtit.value = editSubtit.textContent
-  popupEdit.classList.toggle('popup_open')
+  togglePopup(popupEdit)
 }
 
 function createCard(item){
@@ -89,7 +89,7 @@ function editProfile(event) {
   event.preventDefault()
   editTitle.textContent = inputEditTitle.value
   editSubtit.textContent = inputEditSubtit.value
-  popupEdit.classList.toggle('popup_open')
+  togglePopup(popupEdit)
 }
 
 function submitAddCardForm(event) {
