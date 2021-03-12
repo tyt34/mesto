@@ -21,22 +21,21 @@ const popupImgClose = document.querySelector('.popup-img__close')
 
 renderList()
 buttonEditOpen.addEventListener('click', openPopupEdit)
-buttonAddOpen.addEventListener('click', () => {
-  popupAdd.classList.toggle('popup_open')
-})
+buttonAddOpen.addEventListener('click', togglePopup(popupAdd));
 formEditSave.addEventListener('submit', editProfile)
-buttonEditClose.addEventListener('click', () => {
-  popupEdit.classList.toggle('popup_open')
-})
-buttonAddClose.addEventListener('click', () => {
-  popupAdd.classList.toggle('popup_open')
-})
-popupImgClose.addEventListener('click', () => {
-  popupImg.classList.toggle('popup_open')
-})
+buttonEditClose.addEventListener('click', togglePopup(popupEdit));
+buttonAddClose.addEventListener('click', togglePopup(popupAdd));
+popupImgClose.addEventListener('click', togglePopup(popupImg));
 formAdd.addEventListener('submit', submitAddCardForm)
 
-function doDel(event) {
+togglePopup(popupEdit)
+togglePopup(popupImg)
+
+function togglePopup(popup) {
+  popup.classList.toggle('popup_open')
+}
+
+function deleteCard(event) {
   const target = event.target;
 	const currentCard = target.closest('.place');
 	currentCard.remove();
@@ -49,7 +48,7 @@ function createLike(event) {
 
 function openImg(event) {
   const target = event.target;
-  let textThisImg = target.parentNode.querySelector('.place__title').textContent
+  const textThisImg = target.parentNode.querySelector('.place__title').textContent
   descrPopupImg.textContent = textThisImg
   imgInPopupImg.src = target.src
   popupImg.alt = target.alt
@@ -73,7 +72,7 @@ function createCard(item){
   const buttonDel = newItem.querySelector('.place__del')
   const img = newItem.querySelector('.place__img')
   buttonLike.addEventListener('click', createLike)
-  buttonDel.addEventListener('click', doDel)
+  buttonDel.addEventListener('click', deleteCard)
   img.addEventListener('click', openImg)
 	return newItem;
 }
@@ -98,23 +97,6 @@ function submitAddCardForm(event) {
   let addNewCard = createCard({title:inputAddTitle.value, link:inputAddLink.value})
   container.prepend(addNewCard)
   popupAdd.classList.toggle('popup_open')
+  inputAddTitle.value = ''
+  inputAddLink.value = ''
 }
-
-/*
-function closePopupImg(event) {
-  console.log('1 ',event);
-  popupImg.classList.toggle('popup_open')
-}
-function closePopupAdd(event) {
-  console.log('2 ',event);
-  popupAdd.classList.toggle('popup_open')
-}
-function closePopupEdit(event) {
-  console.log('3 ',event);
-  popupEdit.classList.toggle('popup_open')
-}
-function openPopupAdd(event) {
-  console.log('4 ',event);
-  popupAdd.classList.toggle('popup_open')
-}
-*/
