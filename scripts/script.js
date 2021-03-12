@@ -28,8 +28,8 @@ buttonAddClose.addEventListener('click', togglePopup(popupAdd));
 popupImgClose.addEventListener('click', togglePopup(popupImg));
 formAdd.addEventListener('submit', submitAddCardForm)
 
-//togglePopup(popupEdit)
-//togglePopup(popupImg)
+togglePopup(popupEdit)
+togglePopup(popupImg)
 
 function togglePopup(popup) {
   popup.classList.toggle('popup_open')
