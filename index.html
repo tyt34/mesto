@@ -14,14 +14,15 @@
 
     <main>
       <section class="profile">
-        <img class="profile__img" src="./images/lenin.jpg" alt="Ленин">
+        <!--<img class="profile__img" src="./images/lenin.jpg" alt="Ленин">-->
+        <img class="profile__img" src="./images/jacques.png" alt="Жак-Ив Кусто">
         <div class="profile-char">
           <div class="profile-char__discr">
             <div class="profile-char__info">
-              <h1 id="text-up" class="profile-char__title">Ленин</h1>
+              <h1 id="text-up" class="profile-char__title">Жак-Ив Кусто</h1>
               <button class="profile-char__edit" type="button"></button>
             </div>
-            <p id="text-dw" class="profile-char__subtitle">Вождь</p>
+            <p id="text-dw" class="profile-char__subtitle">Исследователь океана</p>
           </div>
           <button class="profile-char__add" type="button"></button>
         </div>
@@ -36,12 +37,14 @@
     </footer>
 
     <div id="popup-edit" class="popup">
-      <div class="popup__container">
+      <div class="popup__container" id="popup__container_edit">
         <button id="popup-edit__close" class="popup__close" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" action="index.html" method="post" name="discription">
-          <input id="input-title" class="popup__input" name="name" type="text" value="" placeholder="Введите наименование =>">
-          <input id="input-subtitle" class="popup__input" name="kind" type="text" value="" placeholder="Введите род деятельности =>">
+        <form novalidate class="popup__form" action="index.html" method="post" name="persona">
+          <input id="input-profile-title" class="popup__input" name="name" type="text" value="" placeholder="Имя" required minlength="2" maxlength="40">
+          <span id="input-profile-title-error" class="popup__error"></span>
+          <input id="input-profile-subtitle" class="popup__input" name="kind" type="text" value="" placeholder="О себе" required minlength="2" maxlength="200">
+          <span id="input-profile-subtitle-error" class="popup__error"></span>
           <button id="popup-edit__save" class="popup__save" type="submit">
             Сохранить
           </button>
@@ -51,12 +54,14 @@
 
     <!--<div class="popup-add">-->
     <div id="popup-add" class="popup">
-      <div class="popup__container">
+      <div class="popup__container" id="popup__container_add">
         <button id="popup-add__close" class="popup__close" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form id="popup-add__form" class="popup__form" action="index.html" method="post" name="discription">
-          <input id="popup-add-title" class="popup__input" name="name" type="text" value="" placeholder="Название">
-          <input id="popup-add-link" class="popup__input" name="kind" type="text" value="" placeholder="Ссылка на картинку">
+        <form novalidate id="popup-add__form" class="popup__form" action="index.html" method="post" name="discription">
+          <input id="popup-add-title" class="popup__input" name="name" type="text" value="" placeholder="Название" minlength="2" maxlength="30" required>
+          <span id="popup-add-title-error" class="popup__error"></span>
+          <input id="popup-add-link" class="popup__input" name="kind" type="url" value="" placeholder="Ссылка на картинку" required>
+          <span id="popup-add-link-error" class="popup__error"></span>
           <button id="popup-add__save" class="popup__save" type="submit">
             Создать
           </button>
@@ -82,7 +87,8 @@
         </div>
       </article>
     </template>
-    <script src="./scripts/initial-сards.js"></script>
+    <script src="./scripts/initial-сards-U.js"></script>
     <script src="./scripts/script.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>

@@ -5,8 +5,8 @@ const buttonEditOpen  = document.querySelector('.profile-char__edit')
 const buttonEditClose = document.getElementById('popup-edit__close')
 const editTitle       = document.querySelector('.profile-char__title')
 const editSubtit      = document.querySelector('.profile-char__subtitle')
-const inputEditTitle  = document.getElementById('input-title')
-const inputEditSubtit = document.getElementById('input-subtitle')
+const inputEditTitle  = document.getElementById('input-profile-title')
+const inputEditSubtit = document.getElementById('input-profile-subtitle')
 const formEditSave    = document.querySelector('.popup__form')
 const popupAdd       = document.getElementById('popup-add')
 const buttonAddOpen  = document.querySelector('.profile-char__add')
@@ -18,15 +18,68 @@ const popupImg      = document.querySelector('.popup-img')
 const imgInPopupImg = document.querySelector('.popup-img__img')
 const descrPopupImg = document.querySelector('.popup-img__title')
 const popupImgClose = document.querySelector('.popup-img__close')
+const popup = document.querySelector('.popup')
+const popupContainerEdit = document.getElementById('popup__container_edit')
+const popupContainerAdd = document.getElementById('popup__container_add')
+const popupContainerImg = document.querySelector('.popup-img__img')
 
 renderList()
 buttonEditOpen.addEventListener('click', openPopupEdit)
 formEditSave.addEventListener('submit', editProfile)
-buttonAddOpen.addEventListener('click', () => togglePopup(popupAdd));
-buttonEditClose.addEventListener('click', () => togglePopup(popupEdit));
-buttonAddClose.addEventListener('click', () => togglePopup(popupAdd));
-popupImgClose.addEventListener('click', () => togglePopup(popupImg));
+buttonAddOpen.addEventListener('click', () => togglePopup(popupAdd))
+buttonEditClose.addEventListener('click', () => togglePopup(popupEdit))
+buttonAddClose.addEventListener('click', () => togglePopup(popupAdd))
+popupImgClose.addEventListener('click', () => togglePopup(popupImg))
 formAdd.addEventListener('submit', submitAddCardForm)
+buttonEditOpen.addEventListener('keydown', () => closeWithEscEdit(event))
+buttonAddOpen.addEventListener('keydown', () => closeWithEscAdd(event))
+popupEdit.addEventListener('click', () => closeOverWithClickEdit(event))
+popupAdd.addEventListener('click', () => closeOverWithClickAdd(event))
+popupImg.addEventListener('click', () => closeOverWithClickImg(event))
+
+function closeOverWithClickImg(event) {
+  if (!popupContainerImg.contains(event.target)) {
+    removePopup(popupImg)
+  }
+}
+
+function closeOverWithClickAdd(event) {
+  if (!popupContainerAdd.contains(event.target)) {
+    removePopup(popupAdd)
+  }
+}
+
+function closeOverWithClickEdit(event) {
+  if (!popupContainerEdit.contains(event.target)) {
+    removePopup(popupEdit)
+  }
+}
+
+function removePopup(popup) {
+  popup.classList.remove('popup_open')
+}
+
+function closeWithEscEdit(event) {
+  offCloseWithSpace()
+  removePopup(popupEdit)
+}
+
+function closeWithEscAdd(event) {
+  offCloseWithSpace()
+  removePopup(popupAdd)
+}
+
+function removeWithEsc(popup) {
+  if (event.key === 'Escape') {
+    removePopup(popup)
+  }
+}
+
+function offCloseWithSpace() {
+  if (event.key === ' ') {
+    event.preventDefault()
+  }
+}
 
 function togglePopup(popup) {
   popup.classList.toggle('popup_open')
@@ -56,6 +109,7 @@ function openPopupEdit(event) {
   inputEditTitle.value = editTitle.textContent
   inputEditSubtit.value = editSubtit.textContent
   togglePopup(popupEdit)
+  enableValidation(validationConfig); // new
 }
 
 function createCard(item){
@@ -96,4 +150,5 @@ function submitAddCardForm(event) {
   popupAdd.classList.toggle('popup_open')
   inputAddTitle.value = ''
   inputAddLink.value = ''
+  enableValidation(validationConfig); // new
 }
