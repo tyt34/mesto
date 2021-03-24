@@ -87,8 +87,8 @@ function togglePopup(popup) {
 
 function deleteCard(event) {
   const target = event.target;
-	const currentCard = target.closest('.place');
-	currentCard.remove();
+  const currentCard = target.closest('.place');
+  currentCard.remove();
 }
 
 function createLike(event) {
@@ -113,7 +113,7 @@ function openPopupEdit(event) {
 }
 
 function createCard(item){
-	const newItem = templateElement.content.cloneNode(true);
+  const newItem = templateElement.content.cloneNode(true);
   const picTemplate = newItem.querySelector('.place__img');
   const textTemplate = newItem.querySelector('.place__title');
   picTemplate.src = item.link
@@ -125,15 +125,15 @@ function createCard(item){
   buttonLike.addEventListener('click', createLike)
   buttonDel.addEventListener('click', deleteCard)
   img.addEventListener('click', openImg)
-	return newItem;
+  return newItem;
 }
 
 function renderList() {
-	const result = initialCards.map(function(item) {
-		const newCard = createCard(item);
-		return newCard;
-	});
-	container.append(...result)
+  const result = initialCards.map(function(item) {
+    const newCard = createCard(item);
+    return newCard;
+  });
+  container.append(...result)
 }
 
 function editProfile(event) {
