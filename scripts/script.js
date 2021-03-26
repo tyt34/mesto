@@ -31,11 +31,42 @@ buttonEditClose.addEventListener('click', () => togglePopup(popupEdit))
 buttonAddClose.addEventListener('click', () => togglePopup(popupAdd))
 popupImgClose.addEventListener('click', () => togglePopup(popupImg))
 formAdd.addEventListener('submit', submitAddCardForm)
-buttonEditOpen.addEventListener('keydown', () => closeWithEscEdit(event))
-buttonAddOpen.addEventListener('keydown', () => closeWithEscAdd(event))
+//buttonEditOpen.addEventListener('keydown', () => closeWithEscEdit(event))
+//buttonAddOpen.addEventListener('keydown', () => closeWithEscAdd(event))
 popupEdit.addEventListener('click', () => closeOverWithClickEdit(event))
 popupAdd.addEventListener('click', () => closeOverWithClickAdd(event))
 popupImg.addEventListener('click', () => closeOverWithClickImg(event))
+document.addEventListener('keydown', (event) => closePopupWithEsc(event))
+
+function closePopupWithEsc(evt) {
+  removeWithEsc(popupImg)
+  removeWithEsc(popupAdd)
+  removeWithEsc(popupEdit)
+}
+
+function removeWithEsc(popup) {
+  if (event.key === 'Escape') {
+    removePopup(popup)
+  }
+  if (event.key === ' ') {
+    event.preventDefault()
+  }
+}
+
+function removePopup(popup) {
+  popup.classList.remove('popup_open')
+}
+
+/*
+function closeWithEscEdit(event) {
+  removeWithEsc(popupEdit)
+}
+*/
+/*
+function closeWithEscAdd(event) {
+  removeWithEsc(popupAdd)
+}
+*/
 
 function closeOverWithClickImg(event) {
   if (!popupContainerImg.contains(event.target)) {
@@ -52,32 +83,6 @@ function closeOverWithClickAdd(event) {
 function closeOverWithClickEdit(event) {
   if (!popupContainerEdit.contains(event.target)) {
     removePopup(popupEdit)
-  }
-}
-
-function removePopup(popup) {
-  popup.classList.remove('popup_open')
-}
-
-function closeWithEscEdit(event) {
-  offCloseWithSpace()
-  removePopup(popupEdit)
-}
-
-function closeWithEscAdd(event) {
-  offCloseWithSpace()
-  removePopup(popupAdd)
-}
-
-function removeWithEsc(popup) {
-  if (event.key === 'Escape') {
-    removePopup(popup)
-  }
-}
-
-function offCloseWithSpace() {
-  if (event.key === ' ') {
-    event.preventDefault()
   }
 }
 
