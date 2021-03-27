@@ -17,9 +17,7 @@ const formAdd        = document.getElementById('popup-add__form')
 const popupImg      = document.querySelector('.popup-img')
 const imgInPopupImg = document.querySelector('.popup-img__img')
 const descrPopupImg = document.querySelector('.popup-img__title')
-//const popupImgClose = document.querySelector('.popup-img__close')
 const popupImgClose = document.getElementById('popup-img__close')
-const popup = document.querySelector('.popup')
 const popupContainerEdit = document.getElementById('popup__container_edit')
 const popupContainerAdd = document.getElementById('popup__container_add')
 const popupContainerImg = document.querySelector('.popup-img__img')
@@ -32,63 +30,59 @@ buttonEditClose.addEventListener('click', () => togglePopup(popupEdit))
 buttonAddClose.addEventListener('click', () => togglePopup(popupAdd))
 popupImgClose.addEventListener('click', () => togglePopup(popupImg))
 formAdd.addEventListener('submit', submitAddCardForm)
-//buttonEditOpen.addEventListener('keydown', () => closeWithEscEdit(event))
-//buttonAddOpen.addEventListener('keydown', () => closeWithEscAdd(event))
-popupEdit.addEventListener('click', () => closeOverWithClickEdit(event))
-popupAdd.addEventListener('click', () => closeOverWithClickAdd(event))
-popupImg.addEventListener('click', () => closeOverWithClickImg(event))
-document.addEventListener('keydown', (event) => closePopupWithEsc(event))
+//popupEdit.addEventListener('click', () => closeOverWithClickEdit(event))
+//popupAdd.addEventListener('click', () => closeOverWithClickAdd(event))
+//popupImg.addEventListener('click', () => closeOverWithClickImg(event))
+popupEdit.addEventListener('click', () => closeOverWithClick(event))
+popupAdd.addEventListener('click', () => closeOverWithClick(event))
+popupImg.addEventListener('click', () => closeOverWithClick(event))
+//document.addEventListener('keydown', (event) => closeByEscape(event))
+document.addEventListener('keydown', closeByEscape)
 
-function closePopupWithEsc(evt) {
-  removeWithEsc(popupImg)
-  removeWithEsc(popupAdd)
-  removeWithEsc(popupEdit)
-}
-
-function removeWithEsc(popup) {
+function closeByEscape(event) {
   if (event.key === 'Escape') {
-    removePopup(popup)
+    const openedPopup = document.querySelector('.popup_open') /* найти открытый попап */
+    console.log(openedPopup);
+    closePopup(openedPopup)
   }
   if (event.key === ' ') {
     event.preventDefault()
   }
+}
+function closePopup(popup) {
+  popup.classList.remove('popup_open');
+  document.removeEventListener('keydown', closeByEscape);
 }
 
 function removePopup(popup) {
   popup.classList.remove('popup_open')
 }
 
-/*
-function closeWithEscEdit(event) {
-  removeWithEsc(popupEdit)
-}
-*/
-/*
-function closeWithEscAdd(event) {
-  removeWithEsc(popupAdd)
-}
-*/
-
-function closeOverWithClickImg(event) {
+function closeOverWithClick(event) {
+  /*
   if (!popupContainerImg.contains(event.target)) {
     removePopup(popupImg)
   }
-}
-
-function closeOverWithClickAdd(event) {
-  if (!popupContainerAdd.contains(event.target)) {
-    removePopup(popupAdd)
-  }
-}
-
-function closeOverWithClickEdit(event) {
-  if (!popupContainerEdit.contains(event.target)) {
-    removePopup(popupEdit)
-  }
+  */
+  const popups = document.querySelectorAll('.popup')
+  popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+      /*
+      if (evt.target.classList.contains('popup_opened')) {
+        console.log('2');
+        closePopup(popup)
+      }
+      */
+      if (!evt.target.classList.contains(event.target)) {
+        removePopup(popup)
+      }
+    })
+  })
 }
 
 function togglePopup(popup) {
   popup.classList.toggle('popup_open')
+  document.addEventListener('keydown', closeByEscape) /* добавляет слушатель иначе не слушают*/
 }
 
 function deleteCard(event) {
@@ -115,7 +109,9 @@ function openPopupEdit(event) {
   inputEditTitle.value = editTitle.textContent
   inputEditSubtit.value = editSubtit.textContent
   togglePopup(popupEdit)
-  enableValidation(validationConfig); // new
+  //enableValidation(validationConfig); // new
+  // надо правильно навесить обработчик.
+  //console.log(' Вот раньше...');
 }
 
 function createCard(item){
@@ -151,10 +147,13 @@ function editProfile(event) {
 
 function submitAddCardForm(event) {
   event.preventDefault()
-  let addNewCard = createCard({title:inputAddTitle.value, link:inputAddLink.value})
+  const addNewCard = createCard({title:inputAddTitle.value, link:inputAddLink.value})
   container.prepend(addNewCard)
-  popupAdd.classList.toggle('popup_open')
+  //popupAdd.classList.toggle('popup_open')
+  togglePopup(popupAdd)
   inputAddTitle.value = ''
   inputAddLink.value = ''
-  enableValidation(validationConfig); // new
+  //enableValidation(validationConfig); // new
+  // надо правильно навесить обработчик.
+  //console.log(' Вот раньше...');
 }
