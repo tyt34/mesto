@@ -23,25 +23,39 @@ const popupContainerImg = document.querySelector('.popup-img__img')
 renderList()
 buttonEditOpen.addEventListener('click', openPopupEdit)
 formEditSave.addEventListener('submit', editProfile)
+/*
 buttonAddOpen.addEventListener('click', () => togglePopup(popupAdd))
 buttonEditClose.addEventListener('click', () => togglePopup(popupEdit))
 buttonAddClose.addEventListener('click', () => togglePopup(popupAdd))
 popupImgClose.addEventListener('click', () => togglePopup(popupImg))
+*/
+buttonAddOpen.addEventListener('click', () => openPopup(popupAdd))
+buttonEditClose.addEventListener('click', () => openPopup(popupEdit))
+buttonAddClose.addEventListener('click', () => openPopup(popupAdd))
+popupImgClose.addEventListener('click', () => openPopup(popupImg))
 formAdd.addEventListener('submit', submitAddCardForm)
-popupEdit.addEventListener('click', () => closeOverWithClick(event)) // new
-popupAdd.addEventListener('click', () => closeOverWithClick(event))
-popupImg.addEventListener('click', () => closeOverWithClick(event))
+//popupEdit.addEventListener('click', () => closeOverWithClick(event)) // new
+//popupAdd.addEventListener('click', () => closeOverWithClick(event))
+//popupImg.addEventListener('click', () => closeOverWithClick(event))
+
+closeOverWithClick(event)
 
 function closeByEscape(event) {
   if (event.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_open') /* найти открытый попап */
-    console.log(openedPopup);
+    const openedPopup = document.querySelector('.popup_open') // найти открытый попап
+    //console.log(openedPopup);
     closePopup(openedPopup)
   }
   if (event.key === ' ') {
     event.preventDefault()
   }
 }
+
+function openPopup(popup) {
+  popup.classList.toggle('popup_open')
+  document.addEventListener('keydown', closeByEscape)
+}
+
 function closePopup(popup) {
   popup.classList.remove('popup_open');
   document.removeEventListener('keydown', closeByEscape);
@@ -61,12 +75,12 @@ function closeOverWithClick(event) {
     })
   })
 }
-
+/*
 function togglePopup(popup) { // надо поделить на две функции, но потом
   popup.classList.toggle('popup_open')
-  document.addEventListener('keydown', closeByEscape) /* добавляет слушатель иначе не слушают*/
+  document.addEventListener('keydown', closeByEscape) //добавляет слушатель иначе не слушают
 }
-
+*/
 function deleteCard(event) {
   const target = event.target;
   const currentCard = target.closest('.place');
@@ -84,13 +98,15 @@ function openImg(event) {
   descrPopupImg.textContent = textThisImg
   imgInPopupImg.src = target.src
   popupImg.alt = target.alt
-  togglePopup(popupImg)
+  //togglePopup(popupImg)
+  openPopup(popupImg)
 }
 
 function openPopupEdit(event) {
   inputEditTitle.value = editTitle.textContent
   inputEditSubtit.value = editSubtit.textContent
-  togglePopup(popupEdit)
+  //togglePopup(popupEdit)
+  openPopup(popupEdit)
   //enableValidation(validationConfig); // new
   // надо правильно навесить обработчик.
   //console.log(' Вот раньше...');
@@ -124,17 +140,35 @@ function editProfile(event) {
   event.preventDefault()
   editTitle.textContent = inputEditTitle.value
   editSubtit.textContent = inputEditSubtit.value
-  togglePopup(popupEdit)
+  //console.log('editProfile');
+  //togglePopup(popupEdit)
+  //openPopup(popupEdit)
+  closePopup(popupEdit)
 }
 
 function submitAddCardForm(event) {
+  //console.log(buttonElement);
+  //console.log('submitAddCardForm');
   event.preventDefault()
   const addNewCard = createCard({title:inputAddTitle.value, link:inputAddLink.value})
   container.prepend(addNewCard)
   //popupAdd.classList.toggle('popup_open')
-  togglePopup(popupAdd)
+  //togglePopup(popupAdd)
+  closePopup(popupAdd)
   inputAddTitle.value = ''
   inputAddLink.value = ''
+
+  const buttonElement = document.getElementById('popup-add__save')
+  buttonElement.classList.add('popup__save_disabled');
+  buttonElement.setAttribute('disabled', true)
+  //console.log('!!!');
+  //console.log(buttonElement);
+
+  //const submitButtonSelector = '.popup__save'
+  //const buttonElement = formElement.querySelector(submitButtonSelector);
+  //buttonElement.classList.add(inactiveButtonClass);
+  //buttonElement.setAttribute('disabled', true)
+
   //enableValidation(validationConfig); // new
   // надо правильно навесить обработчик.
   //console.log(' Вот раньше...');
