@@ -31,10 +31,16 @@ buttonEditClose.addEventListener('click', () => togglePopup(popupEdit))
 buttonAddClose.addEventListener('click', () => togglePopup(popupAdd))
 popupImgClose.addEventListener('click', () => togglePopup(popupImg))
 */
+/*
 buttonAddOpen.addEventListener('click', () => openPopup(popupAdd))
 buttonEditClose.addEventListener('click', () => openPopup(popupEdit))
 buttonAddClose.addEventListener('click', () => openPopup(popupAdd))
 popupImgClose.addEventListener('click', () => openPopup(popupImg))
+*/
+buttonAddOpen.addEventListener('click', () => openPopup(popupAdd))
+buttonEditClose.addEventListener('click', () => closePopup(popupEdit))
+buttonAddClose.addEventListener('click', () => closePopup(popupAdd))
+popupImgClose.addEventListener('click', () => closePopup(popupImg))
 formAdd.addEventListener('submit', submitAddCardForm)
 //popupEdit.addEventListener('click', () => closeOverWithClick(event)) // new
 //popupAdd.addEventListener('click', () => closeOverWithClick(event))
@@ -54,7 +60,8 @@ function closeByEscape(event) {
 }
 
 function openPopup(popup) {
-  popup.classList.toggle('popup_open')
+  //popup.classList.toggle('popup_open')
+  popup.classList.add('popup_open')
   document.addEventListener('keydown', closeByEscape)
 }
 
