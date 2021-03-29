@@ -18,8 +18,6 @@ const popupImg      = document.querySelector('.popup-img')
 const imgInPopupImg = document.querySelector('.popup-img__img')
 const descrPopupImg = document.querySelector('.popup-img__title')
 const popupImgClose = document.getElementById('popup-img__close')
-const popupContainerEdit = document.getElementById('popup__container_edit')
-const popupContainerAdd = document.getElementById('popup__container_add')
 const popupContainerImg = document.querySelector('.popup-img__img')
 
 renderList()
@@ -30,14 +28,9 @@ buttonEditClose.addEventListener('click', () => togglePopup(popupEdit))
 buttonAddClose.addEventListener('click', () => togglePopup(popupAdd))
 popupImgClose.addEventListener('click', () => togglePopup(popupImg))
 formAdd.addEventListener('submit', submitAddCardForm)
-//popupEdit.addEventListener('click', () => closeOverWithClickEdit(event))
-//popupAdd.addEventListener('click', () => closeOverWithClickAdd(event))
-//popupImg.addEventListener('click', () => closeOverWithClickImg(event))
-popupEdit.addEventListener('click', () => closeOverWithClick(event))
+popupEdit.addEventListener('click', () => closeOverWithClick(event)) // new
 popupAdd.addEventListener('click', () => closeOverWithClick(event))
 popupImg.addEventListener('click', () => closeOverWithClick(event))
-//document.addEventListener('keydown', (event) => closeByEscape(event))
-document.addEventListener('keydown', closeByEscape)
 
 function closeByEscape(event) {
   if (event.key === 'Escape') {
@@ -53,34 +46,23 @@ function closePopup(popup) {
   popup.classList.remove('popup_open');
   document.removeEventListener('keydown', closeByEscape);
 }
-
+/*
 function removePopup(popup) {
   popup.classList.remove('popup_open')
 }
-
+*/
 function closeOverWithClick(event) {
-  /*
-  if (!popupContainerImg.contains(event.target)) {
-    removePopup(popupImg)
-  }
-  */
   const popups = document.querySelectorAll('.popup')
   popups.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
-      /*
-      if (evt.target.classList.contains('popup_opened')) {
-        console.log('2');
-        closePopup(popup)
-      }
-      */
-      if (!evt.target.classList.contains(event.target)) {
-        removePopup(popup)
-      }
+      if (evt.target.classList.contains('popup_open')) {
+       closePopup(popup)
+     }
     })
   })
 }
 
-function togglePopup(popup) {
+function togglePopup(popup) { // надо поделить на две функции, но потом
   popup.classList.toggle('popup_open')
   document.addEventListener('keydown', closeByEscape) /* добавляет слушатель иначе не слушают*/
 }
