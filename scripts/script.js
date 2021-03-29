@@ -3,6 +3,7 @@ const container = document.querySelector('.places')
 const popupEdit       = document.getElementById('popup-edit')
 const buttonEditOpen  = document.querySelector('.profile-char__edit')
 const buttonEditClose = document.getElementById('popup-edit__close')
+const buttonEditSave = document.getElementById('popup-edit__save')
 const editTitle       = document.querySelector('.profile-char__title')
 const editSubtit      = document.querySelector('.profile-char__subtitle')
 const inputEditTitle  = document.getElementById('input-profile-title')
@@ -11,6 +12,7 @@ const formEditSave    = document.querySelector('.popup__form')
 const popupAdd       = document.getElementById('popup-add')
 const buttonAddOpen  = document.querySelector('.profile-char__add')
 const buttonAddClose = document.getElementById('popup-add__close')
+const buttonAddSave = document.getElementById('popup-add__save')
 const inputAddTitle  = document.getElementById('popup-add-title')
 const inputAddLink   = document.getElementById('popup-add-link')
 const formAdd        = document.getElementById('popup-add__form')
@@ -106,6 +108,8 @@ function openPopupEdit(event) {
   inputEditTitle.value = editTitle.textContent
   inputEditSubtit.value = editSubtit.textContent
   //togglePopup(popupEdit)
+  buttonEditSave.classList.remove('popup__save_disabled')
+  buttonEditSave.removeAttribute('disabled')
   openPopup(popupEdit)
   //enableValidation(validationConfig); // new
   // надо правильно навесить обработчик.
@@ -158,9 +162,9 @@ function submitAddCardForm(event) {
   inputAddTitle.value = ''
   inputAddLink.value = ''
 
-  const buttonElement = document.getElementById('popup-add__save')
-  buttonElement.classList.add('popup__save_disabled');
-  buttonElement.setAttribute('disabled', true)
+  //const buttonElement = document.getElementById('popup-add__save')
+  buttonAddSave.classList.add('popup__save_disabled');
+  buttonAddSave.setAttribute('disabled', true)
   //console.log('!!!');
   //console.log(buttonElement);
 
