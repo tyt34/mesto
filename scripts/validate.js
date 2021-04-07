@@ -48,15 +48,11 @@ const setInputListeners = (formSelector, formElement, inputSelector, errorClass,
 
 const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
   if (hasInvalidInput(inputList) || allInputsEmpty(inputList)) {
-    //console.log(buttonElement);
     buttonElement.classList.add(inactiveButtonClass);
     buttonElement.setAttribute('disabled', true)
-    //console.log('Нельзя');
-    //console.log(formElement);
   } else {
     buttonElement.classList.remove(inactiveButtonClass)
     buttonElement.removeAttribute('disabled')
-    //console.log('Можно');
   }
 };
 

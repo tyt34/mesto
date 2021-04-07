@@ -22,36 +22,48 @@ const descrPopupImg = document.querySelector('.popup-img__title')
 const popupImgClose = document.getElementById('popup-img__close')
 const popupContainerImg = document.querySelector('.popup-img__img')
 
-renderList()
-buttonEditOpen.addEventListener('click', openPopupEdit)
-formEditSave.addEventListener('submit', editProfile)
-/*
-buttonAddOpen.addEventListener('click', () => togglePopup(popupAdd))
-buttonEditClose.addEventListener('click', () => togglePopup(popupEdit))
-buttonAddClose.addEventListener('click', () => togglePopup(popupAdd))
-popupImgClose.addEventListener('click', () => togglePopup(popupImg))
-*/
-/*
-buttonAddOpen.addEventListener('click', () => openPopup(popupAdd))
-buttonEditClose.addEventListener('click', () => openPopup(popupEdit))
-buttonAddClose.addEventListener('click', () => openPopup(popupAdd))
-popupImgClose.addEventListener('click', () => openPopup(popupImg))
-*/
-buttonAddOpen.addEventListener('click', () => openPopup(popupAdd))
+renderAllCards(initialCards, container)
+
+buttonEditOpen.addEventListener('click',  openPopupEdit)
+formEditSave.addEventListener('submit',   editProfile)
+buttonAddOpen.addEventListener('click',   () => openPopup(popupAdd))
 buttonEditClose.addEventListener('click', () => closePopup(popupEdit))
-buttonAddClose.addEventListener('click', () => closePopup(popupAdd))
-popupImgClose.addEventListener('click', () => closePopup(popupImg))
+buttonAddClose.addEventListener('click',  () => closePopup(popupAdd))
+popupImgClose.addEventListener('click',   () => closePopup(popupImg))
 formAdd.addEventListener('submit', submitAddCardForm)
-//popupEdit.addEventListener('click', () => closeOverWithClick(event)) // new
-//popupAdd.addEventListener('click', () => closeOverWithClick(event))
-//popupImg.addEventListener('click', () => closeOverWithClick(event))
 
 closeOverWithClick(event)
+
+function submitAddCardForm(event) {
+  event.preventDefault()
+  const addNewCard = new Card(
+    {
+      title:inputAddTitle.value,
+      link:inputAddLink.value
+    },
+    '.template'
+  )
+  container.prepend(addNewCard.createNewCard())
+  closePopup(popupAdd)
+  inputAddTitle.value = ''
+  inputAddLink.value = ''
+  buttonAddSave.classList.add('popup__save_disabled');
+  buttonAddSave.setAttribute('disabled', true)
+}
+
+function renderAllCards(list, container) {
+  const result = list.map(
+    (item) => {
+      const newCard = new Card(item, '.template')
+      return newCard.createNewCard()
+    }
+  )
+  container.append(...result)
+}
 
 function closeByEscape(event) {
   if (event.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_open') // найти открытый попап
-    //console.log(openedPopup);
     closePopup(openedPopup)
   }
   if (event.key === ' ') {
@@ -60,7 +72,6 @@ function closeByEscape(event) {
 }
 
 function openPopup(popup) {
-  //popup.classList.toggle('popup_open')
   popup.classList.add('popup_open')
   document.addEventListener('keydown', closeByEscape)
 }
@@ -69,11 +80,7 @@ function closePopup(popup) {
   popup.classList.remove('popup_open');
   document.removeEventListener('keydown', closeByEscape);
 }
-/*
-function removePopup(popup) {
-  popup.classList.remove('popup_open')
-}
-*/
+
 function closeOverWithClick(event) {
   const popups = document.querySelectorAll('.popup')
   popups.forEach((popup) => {
@@ -85,44 +92,36 @@ function closeOverWithClick(event) {
   })
 }
 /*
-function togglePopup(popup) { // надо поделить на две функции, но потом
-  popup.classList.toggle('popup_open')
-  document.addEventListener('keydown', closeByEscape) //добавляет слушатель иначе не слушают
-}
-*/
 function deleteCard(event) {
   const target = event.target;
   const currentCard = target.closest('.place');
   currentCard.remove();
 }
-
+*/
+/*
 function createLike(event) {
   const target = event.target;
   target.classList.toggle('place-like')
 }
-
+*/
+/*
 function openImg(event) {
   const target = event.target;
   const textThisImg = target.parentNode.querySelector('.place__title').textContent
   descrPopupImg.textContent = textThisImg
   imgInPopupImg.src = target.src
   popupImg.alt = target.alt
-  //togglePopup(popupImg)
   openPopup(popupImg)
 }
-
+*/
 function openPopupEdit(event) {
   inputEditTitle.value = editTitle.textContent
   inputEditSubtit.value = editSubtit.textContent
-  //togglePopup(popupEdit)
   buttonEditSave.classList.remove('popup__save_disabled')
   buttonEditSave.removeAttribute('disabled')
   openPopup(popupEdit)
-  //enableValidation(validationConfig); // new
-  // надо правильно навесить обработчик.
-  //console.log(' Вот раньше...');
 }
-
+/*
 function createCard(item){
   const newItem = templateElement.content.cloneNode(true);
   const picTemplate = newItem.querySelector('.place__img');
@@ -136,12 +135,14 @@ function createCard(item){
   buttonLike.addEventListener('click', createLike)
   buttonDel.addEventListener('click', deleteCard)
   img.addEventListener('click', openImg)
+  //console.log(newItem);
   return newItem;
 }
-
+*/
 function renderList() {
   const result = initialCards.map(function(item) {
     const newCard = createCard(item);
+    //console.log(newCard);
     return newCard;
   });
   container.append(...result)
@@ -151,36 +152,5 @@ function editProfile(event) {
   event.preventDefault()
   editTitle.textContent = inputEditTitle.value
   editSubtit.textContent = inputEditSubtit.value
-  //console.log('editProfile');
-  //togglePopup(popupEdit)
-  //openPopup(popupEdit)
   closePopup(popupEdit)
-}
-
-function submitAddCardForm(event) {
-  //console.log(buttonElement);
-  //console.log('submitAddCardForm');
-  event.preventDefault()
-  const addNewCard = createCard({title:inputAddTitle.value, link:inputAddLink.value})
-  container.prepend(addNewCard)
-  //popupAdd.classList.toggle('popup_open')
-  //togglePopup(popupAdd)
-  closePopup(popupAdd)
-  inputAddTitle.value = ''
-  inputAddLink.value = ''
-
-  //const buttonElement = document.getElementById('popup-add__save')
-  buttonAddSave.classList.add('popup__save_disabled');
-  buttonAddSave.setAttribute('disabled', true)
-  //console.log('!!!');
-  //console.log(buttonElement);
-
-  //const submitButtonSelector = '.popup__save'
-  //const buttonElement = formElement.querySelector(submitButtonSelector);
-  //buttonElement.classList.add(inactiveButtonClass);
-  //buttonElement.setAttribute('disabled', true)
-
-  //enableValidation(validationConfig); // new
-  // надо правильно навесить обработчик.
-  //console.log(' Вот раньше...');
 }

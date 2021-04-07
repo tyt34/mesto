@@ -1,4 +1,4 @@
-const initialCards = [
+const initialCardsL = [
   {
     title: 'Ленин на трибуне',
     link: 'https://punktum.ru/wp-content/uploads/2013/09/revol_11-751x1024.jpg'

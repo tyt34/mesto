@@ -5,12 +5,14 @@
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
-  overflow: hidden; /*из за неё экран перестало распирать*/
+  /*overflow: hidden;*/ /*из за неё экран перестало распирать*/ /* теперь с ней тупит */ 
   position: relative;
 }
+
 .place:last-child {
   margin-bottom: 0;
 }
+
 @media screen and (min-width: 780px) {
   .place {
     width: 100%;
