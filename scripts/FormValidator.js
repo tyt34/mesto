@@ -1,6 +1,6 @@
-export default class FormValidator
+//class FormValidator
 //console.log(' start FormValidator');
-class FormValidator {
+export default class FormValidator {
   constructor (conf, elemForValid) {
     this._conf = conf
     this._elem = elemForValid

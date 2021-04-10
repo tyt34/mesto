@@ -1,5 +1,5 @@
-import initialCards from '.initial-cards-U.js'; 
 import Card from './Card.js';
+import initialCards from '.initial-cards-U.js';
 import FormValidator from './FormValidator.js'
 
 const templateElement = document.querySelector('.template')

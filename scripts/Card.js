@@ -1,6 +1,6 @@
-export default class Card
+// class Card
 //console.log(' start Card ');
-class Card {
+export default class Card {
   constructor (item, selector) {
     this._item = item
     this._selector = selector
