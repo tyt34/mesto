@@ -37,6 +37,7 @@ class Card {
   }
 
   openImg() { // event уже не нужен
+    //console.log(' ! ! ');
     const target = event.target;
     const textThisImg = target.parentNode.querySelector('.place__title').textContent
     descrPopupImg.textContent = textThisImg
@@ -44,7 +45,25 @@ class Card {
     popupImg.alt = target.alt
     popupImg.classList.add('popup_open')
     document.addEventListener('keydown', closeByEscape)
+    //this.met3()
   }
+  /*
+  openPopup = () => {
+    console.log(' ! ');
+    //popupImg.classList.add('popup_open')
+    //document.addEventListener('keydown', closeByEscape)
+  }
+  */
+  /*
+  met1() {
+    console.log('m1 ')
+    this.met3()
+  }
+
+  met3() {
+    console.log('m3 ')
+  }
+  */
 
   createNewCard() {
     this.templateElement = document.querySelector(this._selector)

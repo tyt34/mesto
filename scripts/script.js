@@ -34,6 +34,12 @@ formAdd.addEventListener('submit', submitAddCardForm)
 
 closeOverWithClick(event)
 
+const startPopapEdit = new FormValidator(validationConfig, document.querySelectorAll('.popup__form')[0])
+const startPopapAdd  = new FormValidator(validationConfig, document.querySelectorAll('.popup__form')[1])
+
+startPopapEdit.enableValidation()
+startPopapAdd.enableValidation()
+
 function submitAddCardForm(event) {
   event.preventDefault()
   const addNewCard = new Card(
@@ -45,6 +51,7 @@ function submitAddCardForm(event) {
   )
   container.prepend(addNewCard.createNewCard())
   closePopup(popupAdd)
+
   inputAddTitle.value = ''
   inputAddLink.value = ''
   buttonAddSave.classList.add('popup__save_disabled');
@@ -55,10 +62,13 @@ function renderAllCards(list, container) {
   const result = list.map(
     (item) => {
       const newCard = new Card(item, '.template')
+      //console.log(' start test ');
+      //newCard.met1()
       return newCard.createNewCard()
     }
   )
   container.append(...result)
+
 }
 
 function closeByEscape(event) {
