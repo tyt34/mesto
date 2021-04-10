@@ -16,11 +16,24 @@ const buttonAddSave = document.getElementById('popup-add__save')
 const inputAddTitle  = document.getElementById('popup-add-title')
 const inputAddLink   = document.getElementById('popup-add-link')
 const formAdd        = document.getElementById('popup-add__form')
+const formEdit        = document.getElementById('popup-edit__form')
 const popupImg      = document.querySelector('.popup-img')
 const imgInPopupImg = document.querySelector('.popup-img__img')
 const descrPopupImg = document.querySelector('.popup-img__title')
 const popupImgClose = document.getElementById('popup-img__close')
 const popupContainerImg = document.querySelector('.popup-img__img')
+
+const validationConfig = {
+  formSelector:         '.popup__form',
+  inputSelector:        '.popup__input',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass:  'popup__save_disabled',
+  inputErrorClass:      '.popup__input_type_error',
+  errorClass:           'popup__error_visible',
+}
+
+const startPopapEdit = new FormValidator(validationConfig, formEdit)
+const startPopapAdd  = new FormValidator(validationConfig, formAdd)
 
 renderAllCards(initialCards, container)
 
@@ -34,8 +47,7 @@ formAdd.addEventListener('submit', submitAddCardForm)
 
 closeOverWithClick(event)
 
-const startPopapEdit = new FormValidator(validationConfig, document.querySelectorAll('.popup__form')[0])
-const startPopapAdd  = new FormValidator(validationConfig, document.querySelectorAll('.popup__form')[1])
+
 
 startPopapEdit.enableValidation()
 startPopapAdd.enableValidation()

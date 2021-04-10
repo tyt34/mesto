@@ -1,23 +1,4 @@
-console.log(' start Card ');
-/*
-Создайте класс Card, который создаёт карточку с текстом и ссылкой на изображение:
-
-принимает в конструктор её данные и селектор её template-элемента;
-содержит приватные методы, которые работают с разметкой, устанавливают слушателей событий;
-содержит приватные методы для каждого обработчика;
-содержит один публичный метод, который возвращает полностью работоспособный и наполненный
-данными элемент карточки.
-
-Для каждой карточки создайте экземпляр класса Card.
-*/
-
-/*
-Класс карточки занимается одной отдельно карточкой.
-
-То есть класс Card должен создавать одну единственную карточку (плюс навешивать
-слушателей событий), а уже некий внешний код, например в index.js будет пробегаться
-по данным и создавать все карточки и вставлять их на страницу
-*/
+//console.log(' start Card ');
 
 class Card {
   constructor (item, selector) {
@@ -37,7 +18,6 @@ class Card {
   }
 
   openImg() { // event уже не нужен
-    //console.log(' ! ! ');
     const target = event.target;
     const textThisImg = target.parentNode.querySelector('.place__title').textContent
     descrPopupImg.textContent = textThisImg
@@ -45,25 +25,7 @@ class Card {
     popupImg.alt = target.alt
     popupImg.classList.add('popup_open')
     document.addEventListener('keydown', closeByEscape)
-    //this.met3()
   }
-  /*
-  openPopup = () => {
-    console.log(' ! ');
-    //popupImg.classList.add('popup_open')
-    //document.addEventListener('keydown', closeByEscape)
-  }
-  */
-  /*
-  met1() {
-    console.log('m1 ')
-    this.met3()
-  }
-
-  met3() {
-    console.log('m3 ')
-  }
-  */
 
   createNewCard() {
     this.templateElement = document.querySelector(this._selector)
