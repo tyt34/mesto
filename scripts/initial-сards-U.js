@@ -1,3 +1,4 @@
+export default initialCards
 const initialCards = [
   {
     title: 'Архыз',

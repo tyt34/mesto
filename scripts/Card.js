@@ -1,5 +1,5 @@
+export default class Card
 //console.log(' start Card ');
-
 class Card {
   constructor (item, selector) {
     this._item = item

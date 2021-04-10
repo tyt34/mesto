@@ -1,3 +1,7 @@
+import initialCards from '.initial-cards-U.js'; 
+import Card from './Card.js';
+import FormValidator from './FormValidator.js'
+
 const templateElement = document.querySelector('.template')
 const container = document.querySelector('.places')
 const popupEdit       = document.getElementById('popup-edit')

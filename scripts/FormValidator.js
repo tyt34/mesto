@@ -1,3 +1,4 @@
+export default class FormValidator
 //console.log(' start FormValidator');
 class FormValidator {
   constructor (conf, elemForValid) {
