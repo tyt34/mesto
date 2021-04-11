@@ -62,6 +62,7 @@ function createCard(information) {
 }
 
 function submitAddCardForm(event) {
+  //console.log(' ! !');
   event.preventDefault()
   container.prepend(createCard({title:inputAddTitle.value,link:inputAddLink.value}))
   closePopup(popupAdd)
@@ -71,7 +72,7 @@ function submitAddCardForm(event) {
   buttonAddSave.classList.add('popup__save_disabled');
   buttonAddSave.setAttribute('disabled', true)
   */
-  startPopapAdd.enableValidation(buttonAddSave)
+  startPopapAdd.disableSubmitButton(buttonAddSave)
 }
 
 function renderAllCards(list, container) {
@@ -115,7 +116,7 @@ function closeOverWithClick(event) {
 function openPopupEdit(event) {
   inputEditTitle.value = editTitle.textContent
   inputEditSubtit.value = editSubtit.textContent
-  startPopapEdit.disableSubmitButton(buttonEditSave)
+  startPopapEdit.enableSubmitButton(buttonEditSave)
   openPopup(popupEdit)
 }
 

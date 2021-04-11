@@ -8,7 +8,6 @@ export default class Card {
     this._descrPopupImg = descrPopupImg
     this._imgInPopupImg = imgInPopupImg
     this._popupImg = popupImg
-    //this._classForPopupOpen = classForPopupOpen
   }
 
   createNewCard() {
@@ -21,38 +20,28 @@ export default class Card {
     this.textTemplate.textContent = this._item.title
     this.buttonLike = this.newItem.querySelector('.place__like')
     this.buttonDel = this.newItem.querySelector('.place__del')
-    this.img = this.newItem.querySelector('.place__img')
     this.buttonLike.addEventListener('click', this._createLike)
     this.buttonDel.addEventListener('click', this._deleteCard)
-    this.img.addEventListener('click', () => this._openImg(event, this._item.title, this._item.link)) // was ('click', this._openImg)
+    this.picTemplate.addEventListener('click', (event) => this._openImg(event, this._item.title, this._item.link)) // was ('click', this._openImg)
     return this.newItem
   }
 
-  _createLike() { // event уже не нужен
+  _createLike(event) { // event уже не нужен // теперь опять нужен
     const target = event.target;
     target.classList.toggle('place-like')
   }
 
-  _deleteCard() { // event уже не нужен
+  _deleteCard(event) { // event уже не нужен // теперь опять нужен
     const target = event.target;
     const currentCard = target.closest('.place');
     currentCard.remove();
-  }
-
-  _closeByEscape() {
-    if (event.key === 'Escape') {
-      const openedPopup = document.querySelector('.popup_open')
-      closePopup(openedPopup) 
-    }
   }
 
   _openImg = (event, title, link) => { // event уже не нужен // теперь опять нужен
     const target = event.target;
     this._descrPopupImg.textContent = title
     this._imgInPopupImg.src = link
-    this._popupImg.alt = target.alt
+    this._popupImg.querySelector('.popup-img__img').alt = 'Изображение места: "'+title+'"'
     openPopup(this._popupImg)
-    //this._popupImg.classList.add(this._classForPopupOpen) // was add('popup_open')
-    //document.addEventListener('keydown', this._closeByEscape)
   }
 }
