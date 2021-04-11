@@ -1,8 +1,10 @@
 import Card from './Card.js';
-import initialCards from '.initial-cards-U.js';
+import {initialCards} from './initial-сards-U.js';
 import FormValidator from './FormValidator.js'
 
-const templateElement = document.querySelector('.template')
+const classForTemplate = '.template'
+const classForPopupOpen     = 'popup_open'
+const templateElement = document.querySelector(classForTemplate)
 const container = document.querySelector('.places')
 const popupEdit       = document.getElementById('popup-edit')
 const buttonEditOpen  = document.querySelector('.profile-char__edit')
@@ -21,11 +23,11 @@ const inputAddTitle  = document.getElementById('popup-add-title')
 const inputAddLink   = document.getElementById('popup-add-link')
 const formAdd        = document.getElementById('popup-add__form')
 const formEdit        = document.getElementById('popup-edit__form')
-const popupImg      = document.querySelector('.popup-img')
-const imgInPopupImg = document.querySelector('.popup-img__img')
-const descrPopupImg = document.querySelector('.popup-img__title')
 const popupImgClose = document.getElementById('popup-img__close')
 const popupContainerImg = document.querySelector('.popup-img__img')
+const descrPopupImg = document.querySelector('.popup-img__title')
+const imgInPopupImg = document.querySelector('.popup-img__img')
+const popupImg      = document.querySelector('.popup-img')
 
 const validationConfig = {
   formSelector:         '.popup__form',
@@ -36,8 +38,8 @@ const validationConfig = {
   errorClass:           'popup__error_visible',
 }
 
-const startPopapEdit = new FormValidator(validationConfig, formEdit)
-const startPopapAdd  = new FormValidator(validationConfig, formAdd)
+const startPopapEdit = new FormValidator(validationConfig, formEdit, buttonEditSave)
+const startPopapAdd  = new FormValidator(validationConfig, formAdd, buttonEditSave)
 
 renderAllCards(initialCards, container)
 
@@ -51,23 +53,18 @@ formAdd.addEventListener('submit', submitAddCardForm)
 
 closeOverWithClick(event)
 
-
-
 startPopapEdit.enableValidation()
 startPopapAdd.enableValidation()
 
+function createCard(information) {
+  const card = new Card(information, classForTemplate, descrPopupImg, imgInPopupImg, popupImg, /*classForPopupOpen*/)
+  return card.createNewCard()
+}
+
 function submitAddCardForm(event) {
   event.preventDefault()
-  const addNewCard = new Card(
-    {
-      title:inputAddTitle.value,
-      link:inputAddLink.value
-    },
-    '.template'
-  )
-  container.prepend(addNewCard.createNewCard())
+  container.prepend(createCard({title:inputAddTitle.value,link:inputAddLink.value}))
   closePopup(popupAdd)
-
   inputAddTitle.value = ''
   inputAddLink.value = ''
   buttonAddSave.classList.add('popup__save_disabled');
@@ -77,10 +74,7 @@ function submitAddCardForm(event) {
 function renderAllCards(list, container) {
   const result = list.map(
     (item) => {
-      const newCard = new Card(item, '.template')
-      //console.log(' start test ');
-      //newCard.met1()
-      return newCard.createNewCard()
+      return createCard(item)
     }
   )
   container.append(...result)
@@ -92,18 +86,15 @@ function closeByEscape(event) {
     const openedPopup = document.querySelector('.popup_open') // найти открытый попап
     closePopup(openedPopup)
   }
-  if (event.key === ' ') {
-    event.preventDefault()
-  }
 }
 
-function openPopup(popup) {
-  popup.classList.add('popup_open')
+export function openPopup(popup) {
+  popup.classList.add(classForPopupOpen)
   document.addEventListener('keydown', closeByEscape)
 }
 
-function closePopup(popup) {
-  popup.classList.remove('popup_open');
+export function closePopup(popup) {
+  popup.classList.remove(classForPopupOpen);
   document.removeEventListener('keydown', closeByEscape);
 }
 
@@ -111,65 +102,23 @@ function closeOverWithClick(event) {
   const popups = document.querySelectorAll('.popup')
   popups.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
-      if (evt.target.classList.contains('popup_open')) {
+      if (evt.target.classList.contains(classForPopupOpen)) {
        closePopup(popup)
      }
     })
   })
 }
-/*
-function deleteCard(event) {
-  const target = event.target;
-  const currentCard = target.closest('.place');
-  currentCard.remove();
-}
-*/
-/*
-function createLike(event) {
-  const target = event.target;
-  target.classList.toggle('place-like')
-}
-*/
-/*
-function openImg(event) {
-  const target = event.target;
-  const textThisImg = target.parentNode.querySelector('.place__title').textContent
-  descrPopupImg.textContent = textThisImg
-  imgInPopupImg.src = target.src
-  popupImg.alt = target.alt
-  openPopup(popupImg)
-}
-*/
+
 function openPopupEdit(event) {
   inputEditTitle.value = editTitle.textContent
   inputEditSubtit.value = editSubtit.textContent
-  buttonEditSave.classList.remove('popup__save_disabled')
-  buttonEditSave.removeAttribute('disabled')
+  startPopapEdit.disableSubmitButton()
   openPopup(popupEdit)
 }
-/*
-function createCard(item){
-  const newItem = templateElement.content.cloneNode(true);
-  const picTemplate = newItem.querySelector('.place__img');
-  const textTemplate = newItem.querySelector('.place__title');
-  picTemplate.src = item.link
-  picTemplate.alt = 'Изображение места: "'+item.title+'"'
-  textTemplate.textContent = item.title
-  const buttonLike = newItem.querySelector('.place__like')
-  const buttonDel = newItem.querySelector('.place__del')
-  const img = newItem.querySelector('.place__img')
-  buttonLike.addEventListener('click', createLike)
-  buttonDel.addEventListener('click', deleteCard)
-  img.addEventListener('click', openImg)
-  //console.log(newItem);
-  return newItem;
-}
-*/
+
 function renderList() {
   const result = initialCards.map(function(item) {
-    const newCard = createCard(item);
-    //console.log(newCard);
-    return newCard;
+    createCard(item);
   });
   container.append(...result)
 }
