@@ -39,7 +39,7 @@ const validationConfig = {
 }
 
 const startPopapEdit = new FormValidator(validationConfig, formEdit, buttonEditSave)
-const startPopapAdd  = new FormValidator(validationConfig, formAdd, buttonEditSave)
+const startPopapAdd  = new FormValidator(validationConfig, formAdd, buttonAddSave)
 
 renderAllCards(initialCards, container)
 
@@ -67,8 +67,11 @@ function submitAddCardForm(event) {
   closePopup(popupAdd)
   inputAddTitle.value = ''
   inputAddLink.value = ''
+  /*
   buttonAddSave.classList.add('popup__save_disabled');
   buttonAddSave.setAttribute('disabled', true)
+  */
+  startPopapAdd.enableValidation(buttonAddSave)
 }
 
 function renderAllCards(list, container) {
@@ -112,7 +115,7 @@ function closeOverWithClick(event) {
 function openPopupEdit(event) {
   inputEditTitle.value = editTitle.textContent
   inputEditSubtit.value = editSubtit.textContent
-  startPopapEdit.disableSubmitButton()
+  startPopapEdit.disableSubmitButton(buttonEditSave)
   openPopup(popupEdit)
 }
 

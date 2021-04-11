@@ -86,8 +86,20 @@ export default class FormValidator {
     }
   }
 
-  disableSubmitButton() {
-    this._buttonEditSave.classList.remove(this._conf.inactiveButtonClass)
-    this._buttonEditSave.removeAttribute('disabled')
+  disableSubmitButton = (button) => {
+    //console.log(' --> ',button);
+    //this._buttonEditSave.classList.remove(this._conf.inactiveButtonClass)
+    //this._buttonEditSave.removeAttribute('disabled')
+    button.classList.remove(this._conf.inactiveButtonClass)
+    button.removeAttribute('disabled')
   }
+  /*
+  enableSubmitButton = (button) => {
+    console.log(' --> ',button);
+    //this._buttonEditSave.classList.remove(this._conf.inactiveButtonClass)
+    //this._buttonEditSave.removeAttribute('disabled')
+    button.classList.add(this._conf.inactiveButtonClass)
+    button.addAttribute('disabled')
+  }
+  */
 }
