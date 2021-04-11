@@ -16,7 +16,8 @@ export default class Card {
     this.picTemplate = this.newItem.querySelector('.place__img');
     this.textTemplate = this.newItem.querySelector('.place__title');
     this.picTemplate.src = this._item.link
-    this.picTemplate.alt = 'Изображение места: "'+this._item.title+'"'
+    //this.picTemplate.alt = 'Изображение места: "'+this._item.title+'"'
+    this.picTemplate.alt = this._createAltImg(this._item.title)
     this.textTemplate.textContent = this._item.title
     this.buttonLike = this.newItem.querySelector('.place__like')
     this.buttonDel = this.newItem.querySelector('.place__del')
@@ -24,6 +25,10 @@ export default class Card {
     this.buttonDel.addEventListener('click', this._deleteCard)
     this.picTemplate.addEventListener('click', (event) => this._openImg(event, this._item.title, this._item.link)) // was ('click', this._openImg)
     return this.newItem
+  }
+
+  _createAltImg = (specialWord) => {
+    return 'Изображение места: "'+specialWord+'"'
   }
 
   _createLike(event) { // event уже не нужен // теперь опять нужен
@@ -41,7 +46,8 @@ export default class Card {
     const target = event.target;
     this._descrPopupImg.textContent = title
     this._imgInPopupImg.src = link
-    this._popupImg.querySelector('.popup-img__img').alt = 'Изображение места: "'+title+'"'
+    //this._popupImg.querySelector('.popup-img__img').alt = 'Изображение места: "'+title+'"'
+    this._popupImg.querySelector('.popup-img__img').alt = this._createAltImg(title)
     openPopup(this._popupImg)
   }
 }
