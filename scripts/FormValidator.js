@@ -16,7 +16,7 @@ export default class FormValidator {
     this._setInputListeners (this._conf.formSelector, this._conf.inputSelector, this._conf.submitButtonSelector, this._conf.inactiveButtonClass)
   }
 
-  _setInputListeners = (formSelector, inputSelector, submitButtonSelector, inactiveButtonClass) => {
+  _setInputListeners = () => {
     const buttonElement = this._elem.querySelector(this._conf.submitButtonSelector);
     this._inputsList.forEach(
       inputElement => {

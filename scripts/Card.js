@@ -16,7 +16,6 @@ export default class Card {
     this.picTemplate = this.newItem.querySelector('.place__img');
     this.textTemplate = this.newItem.querySelector('.place__title');
     this.picTemplate.src = this._item.link
-    //this.picTemplate.alt = 'Изображение места: "'+this._item.title+'"'
     this.picTemplate.alt = this._createAltImg(this._item.title)
     this.textTemplate.textContent = this._item.title
     this.buttonLike = this.newItem.querySelector('.place__like')
@@ -47,7 +46,8 @@ export default class Card {
     this._descrPopupImg.textContent = title
     this._imgInPopupImg.src = link
     //this._popupImg.querySelector('.popup-img__img').alt = 'Изображение места: "'+title+'"'
-    this._popupImg.querySelector('.popup-img__img').alt = this._createAltImg(title)
+    //this._popupImg.querySelector('.popup-img__img').alt = this._createAltImg(title)
+    this._imgInPopupImg.alt = this._createAltImg(title)
     openPopup(this._popupImg)
   }
 }

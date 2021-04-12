@@ -62,16 +62,11 @@ function createCard(information) {
 }
 
 function submitAddCardForm(event) {
-  //console.log(' ! !');
   event.preventDefault()
   container.prepend(createCard({title:inputAddTitle.value,link:inputAddLink.value}))
   closePopup(popupAdd)
   inputAddTitle.value = ''
   inputAddLink.value = ''
-  /*
-  buttonAddSave.classList.add('popup__save_disabled');
-  buttonAddSave.setAttribute('disabled', true)
-  */
   startPopapAdd.disableSubmitButton(buttonAddSave)
 }
 
@@ -118,13 +113,6 @@ function openPopupEdit(event) {
   inputEditSubtit.value = editSubtit.textContent
   startPopapEdit.enableSubmitButton(buttonEditSave)
   openPopup(popupEdit)
-}
-
-function renderList() {
-  const result = initialCards.map(function(item) {
-    createCard(item);
-  });
-  container.append(...result)
 }
 
 function editProfile(event) {
