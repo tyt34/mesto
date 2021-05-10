@@ -1,8 +1,9 @@
-node_modules
-dist
-blocks
-images
-index.html
-pages
-scripts
-vendor
+/installAllLib.sh
+/index.html
+node_modules/
+dist/
+blocks/
+images/
+pages/
+scripts/
+vendor/
