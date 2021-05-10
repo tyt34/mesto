@@ -1,0 +1,20 @@
+.profile-char__add {
+  margin-top: 36px;
+  background: url("../../../images/add.svg") 100% 100% no-repeat;
+  width: 282px;
+  height: 50px;
+  background-position: center;
+  padding: 0;
+  border: 2px solid #FFFFFF;
+}
+.profile-char__add:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+@media screen and (min-width: 768px) {
+  .profile-char__add {
+    width: 150px;
+    height: 50px;
+    margin-top: 0;
+  }
+}

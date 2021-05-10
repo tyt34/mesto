@@ -1,0 +1,13 @@
+.place__img {
+  /*display: flex;*/
+  width: 100%;
+  max-height: 282px;
+  height: 100%;
+  max-width: 282px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer;
+}

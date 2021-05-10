@@ -1,0 +1,8 @@
+.popup_open {
+  /*display: flex;*/   /* было */
+
+  visibility: visible;
+  opacity: 1;
+  transition-property: opacity, visibility;
+  transition-delay: 0s, 0s;
+}

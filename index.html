@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./pages/index.css">
+    <meta charset="UTF-8">
+    <title>Mesto</title>
+  </head>
+  <body class="page">
+    <header class="header">
+      <img class="header__logo" src="./images/logo.svg" alt="Логотип сайта">
+    </header>
+
+    <main>
+      <section class="profile">
+        <img class="profile__img" src="./images/jacques.png" alt="Жак-Ив Кусто">
+        <div class="profile-char">
+          <div class="profile-char__discr">
+            <div class="profile-char__info">
+              <h1 id="text-up" class="profile-char__title">Жак-Ив Кусто</h1>
+              <button class="profile-char__edit" type="button"></button>
+            </div>
+            <p id="text-dw" class="profile-char__subtitle">Исследователь океана</p>
+          </div>
+          <button class="profile-char__add" type="button"></button>
+        </div>
+      </section>
+
+      <section class="places">
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__title">© 2020 Mesto Russia</p>
+    </footer>
+
+    <div id="popup-edit" class="popup">
+      <div class="popup__container" id="popup__container_edit">
+        <button id="popup-edit__close" class="popup__close" type="button"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form novalidate id="popup-edit__form" class="popup__form" action="index.html" method="post" name="persona">
+          <input id="input-profile-title" class="popup__input" name="name" type="text" value="" placeholder="Имя" required minlength="2" maxlength="40">
+          <span id="input-profile-title-error" class="popup__error"></span>
+          <input id="input-profile-subtitle" class="popup__input" name="kind" type="text" value="" placeholder="О себе" required minlength="2" maxlength="200">
+          <span id="input-profile-subtitle-error" class="popup__error"></span>
+          <button id="popup-edit__save" class="popup__save" type="submit">
+            Сохранить
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div id="popup-add" class="popup">
+      <div class="popup__container" id="popup__container_add">
+        <button id="popup-add__close" class="popup__close" type="button"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form novalidate id="popup-add__form" class="popup__form" action="index.html" method="post" name="discription">
+          <input id="popup-add-title" class="popup__input" name="name" type="text" value="" placeholder="Название" minlength="2" maxlength="30" required>
+          <span id="popup-add-title-error" class="popup__error"></span>
+          <input id="popup-add-link" class="popup__input" name="kind" type="url" value="" placeholder="Ссылка на картинку" required>
+          <span id="popup-add-link-error" class="popup__error"></span>
+          <button id="popup-add__save" class="popup__save" type="submit">
+            Создать
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div id="popup-img" class="popup-img popup">
+      <div class="popup-img__container">
+        <img class="popup-img__img" src="./images/logo.svg" alt="Test">
+        <p class="popup-img__title">Test</p>
+        <button id="popup-img__close" class=" popup__close"></button>
+      </div>
+    </div>
+
+    <template class="template">
+      <article class="place">
+        <img class="place__img" src="./images/logo.svg" alt="Test">
+        <button class="place__del" type="button"></button>
+        <div class="place__option">
+            <h2 class="place__title">Test</h2>
+            <button class="place__like" type="button"></button>
+        </div>
+      </article>
+    </template>
+
+    <script src="./scripts/pages/index.js" type="module"></script>
+    <script src="./scripts/utils/constants.js" type="module"></script>
+    <script src="./scripts/components/FormValidator.js" type="module"></script>
+    <script src="./scripts/components/Card.js" type="module"></script>
+    <script src="./scripts/components/Section.js" type="module"></script>
+    <script src="./scripts/components/Popup.js" type="module"></script>
+    <script src="./scripts/components/PopupWithImage.js" type="module"></script>
+    <script src="./scripts/components/PopupWithForm.js" type="module"></script>
+    <script src="./scripts/components/UserInfo.js" type="module"></script>
+  </body>
+</html>
