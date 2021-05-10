@@ -14,7 +14,6 @@
 
     <main>
       <section class="profile">
-        <!--<img class="profile__img" src="./images/lenin.jpg" alt="Ленин">-->
         <img class="profile__img" src="./images/jacques.png" alt="Жак-Ив Кусто">
         <div class="profile-char">
           <div class="profile-char__discr">
@@ -52,7 +51,6 @@
       </div>
     </div>
 
-    <!--<div class="popup-add">-->
     <div id="popup-add" class="popup">
       <div class="popup__container" id="popup__container_add">
         <button id="popup-add__close" class="popup__close" type="button"></button>
@@ -87,14 +85,15 @@
         </div>
       </article>
     </template>
-    <script src="./scripts/index.js" type="module"></script>
-    <script src="./scripts/initial-сards-U.js" type="module"></script>
-    <script src="./scripts/FormValidator.js" type="module"></script>
-    <script src="./scripts/Card.js" type="module"></script>
-    <!--<script src="./scripts/initial-сards-U.js"></script>
-    <script src="./scripts/FormValidator.js"></script>
-    <script src="./scripts/Card.js"></script>-->
-    <!--<script src="./scripts/validate.js"></script>-->
 
+    <script src="./scripts/pages/index.js" type="module"></script>
+    <script src="./scripts/utils/constants.js" type="module"></script>
+    <script src="./scripts/components/FormValidator.js" type="module"></script>
+    <script src="./scripts/components/Card.js" type="module"></script>
+    <script src="./scripts/components/Section.js" type="module"></script>
+    <script src="./scripts/components/Popup.js" type="module"></script>
+    <script src="./scripts/components/PopupWithImage.js" type="module"></script>
+    <script src="./scripts/components/PopupWithForm.js" type="module"></script>
+    <script src="./scripts/components/UserInfo.js" type="module"></script>
   </body>
 </html>
