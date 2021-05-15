@@ -1,6 +1,4 @@
-import {
-  selPicTemplate, selTextTemplate, selButtonLike, buttonDel, selForDelCard, selForCreateLike
-} from '../utils/constants.js';
+import { placeCardSelectors, popupClasses} from '../utils/constants.js';
 
 export default class Card {
   constructor (newCard, renderPopup) {
@@ -15,14 +13,14 @@ export default class Card {
 
   createNewCard() {
     this.templateElement = document.querySelector(this._selector)
-    this.newItem = this.templateElement.content.querySelector(selForDelCard).cloneNode(true);
-    this.picTemplate = this.newItem.querySelector(selPicTemplate)
-    this.textTemplate = this.newItem.querySelector(selTextTemplate)
+    this.newItem = this.templateElement.content.querySelector(placeCardSelectors.place).cloneNode(true);
+    this.picTemplate = this.newItem.querySelector(placeCardSelectors.picture)
+    this.textTemplate = this.newItem.querySelector(placeCardSelectors.text)
     this.picTemplate.src = this._item.link
     this.picTemplate.alt = this._createAltImg(this._item.title)
     this.textTemplate.textContent = this._item.title
-    this.buttonLike = this.newItem.querySelector(selButtonLike)
-    this.buttonDel = this.newItem.querySelector(buttonDel)
+    this.buttonLike = this.newItem.querySelector(placeCardSelectors.like)
+    this.buttonDel = this.newItem.querySelector(placeCardSelectors.delet)
     this.buttonLike.addEventListener('click', this._createLike)
     this.buttonDel.addEventListener('click', this._deleteCard)
     this.picTemplate.addEventListener('click', this._renderPopup)
@@ -35,12 +33,12 @@ export default class Card {
 
   _createLike(event) { // event уже не нужен // теперь опять нужен
     const target = event.target;
-    target.classList.toggle(selForCreateLike)
+    target.classList.toggle(popupClasses.like)
   }
 
   _deleteCard(event) { // event уже не нужен // теперь опять нужен
     const target = event.target;
-    const currentCard = target.closest(selForDelCard);
+    const currentCard = target.closest(placeCardSelectors.place);
     currentCard.remove();
   }
 }

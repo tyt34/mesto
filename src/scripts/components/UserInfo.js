@@ -1,19 +1,19 @@
 export default class UserInfo {
   constructor(selectors) {
-    this._selTitle = document.querySelector(selectors.selTitle)
-    this._selSubtitle = document.querySelector(selectors.selSubtitle)
+    this._titleElement = document.querySelector(selectors.title)
+    this._subtitleElement = document.querySelector(selectors.subtitle)
   }
 
   getUserInfo() {
     this._formValues = {}
     return {
-      'title': this._formValues['title'] = this._selTitle.textContent,
-      'subtitle': this._formValues['subtitle'] = this._selSubtitle.textContent
+      'title': this._titleElement.textContent,
+      'subtitle': this._subtitleElement.textContent
     }
   }
 
   setUserInfo(newData) {
-    this._selTitle.textContent = newData.name
-    this._selSubtitle.textContent = newData.kind
+    this._titleElement.textContent = newData.name
+    this._subtitleElement.textContent = newData.kind
   }
 }

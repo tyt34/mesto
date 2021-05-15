@@ -3,11 +3,10 @@ import './index.css'; // импорт для билда
 import Card from '../scripts/components/Card.js';
 import FormValidator from '../scripts/components/FormValidator.js'
 import {
-  initialCards, validationConfig, selTitle, selSubtitle, classForTemplate,
-  classForPopupOpen, container, buttonEditOpen, buttonEditSave, inputEditTitle,
-  inputEditSubtit, buttonAddOpen, buttonAddSave, inputAddTitle, inputAddLink,
-  formAdd, formEdit, descrPopupImg, imgInPopupImg, popupImg, popupImgSelector,
-  cardListSelector, popupEditSelector, popupAddSelector, selPopup
+  initialCards, validationConfig, profileSelectors, classForTemplate, buttonEditOpen,
+  buttonEditSave, inputEditTitle, inputEditSubtit, buttonAddOpen, buttonAddSave,
+  formAdd, formEdit, descrPopupImg, imgInPopupImg, popupImg,
+  cardListSelector, popupClasses
 } from '../scripts/utils/constants.js';
 import Section from '../scripts/components/Section.js';
 import Popup from '../scripts/components/Popup.js';
@@ -16,11 +15,11 @@ import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
 
 /* START CLASS */
-const startPopapEdit = new FormValidator(validationConfig, formEdit, buttonEditSave)
-startPopapEdit.enableValidation()
+const profileFormValidator = new FormValidator(validationConfig, formEdit, buttonEditSave)
+profileFormValidator.enableValidation()
 
-const startPopapAdd  = new FormValidator(validationConfig, formAdd, buttonAddSave)
-startPopapAdd.enableValidation()
+const addCardFromValidator  = new FormValidator(validationConfig, formAdd, buttonAddSave)
+addCardFromValidator.enableValidation()
 
 const defaultCardList = new Section({
   data: initialCards,
@@ -31,42 +30,42 @@ const defaultCardList = new Section({
 defaultCardList.renderItems();
 
 const popupForEdit = new PopupWithForm({
-  data: popupEditSelector,
+  data: popupClasses.edit,
   renderer: (item) => {
-    objSels.setUserInfo(item)
+    userInfo.setUserInfo(item)
   }
 })
 popupForEdit.setEventListeners()
 
-let openedPopupImg = new PopupWithImage({
-  data: popupImgSelector
+const popupImage = new PopupWithImage({
+  data: popupClasses.img
 })
-openedPopupImg.setEventListeners()
+popupImage.setEventListeners()
 
-const objSels = new UserInfo({selTitle, selSubtitle})
+const userInfo = new UserInfo(profileSelectors)
 
 const popupForAdd = new PopupWithForm({
-  data: popupAddSelector,
+  data: popupClasses.add,
   renderer: (item) => {
     defaultCardList.prependItem(createCard(item))
-    startPopapAdd.disableSubmitButton(buttonAddSave)
+    addCardFromValidator.disableSubmitButton()
   }
 })
 popupForAdd.setEventListeners()
 
 buttonEditOpen.addEventListener('click',  () => {
-  const textInProfile = objSels.getUserInfo()
+  const textInProfile = userInfo.getUserInfo()
   inputEditTitle.value = textInProfile.title
   inputEditSubtit.value = textInProfile.subtitle
-  startPopapEdit.enableSubmitButton(buttonEditSave)
+  profileFormValidator.enableSubmitButton()
   popupForEdit.open()
 })
 
 buttonAddOpen.addEventListener('click', () => popupForAdd.open())
 
 /* FUNCTION */
-function openPopupImg(event, title, link) {
-  openedPopupImg.open(title, link)
+function openPopupImg(title, link) {
+  popupImage.open(title, link)
 }
 
 function createCard(item) { // функция по взаимодействию с классом по созданию карточки
@@ -79,7 +78,7 @@ function createCard(item) { // функция по взаимодействию 
       popupImg,
     },
     (evt) => {
-      openPopupImg(event, item.title, item.link)
+      openPopupImg(item.title, item.link)
     }
   )
   return card.createNewCard()
