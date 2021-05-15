@@ -1,22 +1,23 @@
 import {
-  popupImgSelector, selPicTemplate, selTextTemplate, selButtonLike, buttonDel, selForDelCard, selForCreateLike
+  selPicTemplate, selTextTemplate, selButtonLike, buttonDel, selForDelCard, selForCreateLike
 } from '../utils/constants.js';
 
 export default class Card {
   constructor (newCard, renderPopup) {
-    this._item = newCard[Object.keys(newCard)[0]]
-    this._selector = newCard[Object.keys(newCard)[1]]
-    this._descrPopupImg = newCard[Object.keys(newCard)[2]]
-    this._imgInPopupImg = newCard[Object.keys(newCard)[3]]
-    this._popupImg = newCard[Object.keys(newCard)[4]]
+    this._item = newCard.item
+    this._selector = newCard.classForTemplate
+    this._descrPopupImg = newCard.descrPopupImg
+    this._imgInPopupImg = newCard.imgInPopupImg
+    this._popupImg = newCard.popupImg
+
     this._renderPopup = renderPopup
   }
 
   createNewCard() {
     this.templateElement = document.querySelector(this._selector)
-    this.newItem = this.templateElement.content.cloneNode(true);
-    this.picTemplate = this.newItem.querySelector(selPicTemplate);
-    this.textTemplate = this.newItem.querySelector(selTextTemplate);
+    this.newItem = this.templateElement.content.querySelector(selForDelCard).cloneNode(true);
+    this.picTemplate = this.newItem.querySelector(selPicTemplate)
+    this.textTemplate = this.newItem.querySelector(selTextTemplate)
     this.picTemplate.src = this._item.link
     this.picTemplate.alt = this._createAltImg(this._item.title)
     this.textTemplate.textContent = this._item.title

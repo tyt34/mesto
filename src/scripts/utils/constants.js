@@ -67,3 +67,6 @@ export const selButtonLike = '.place__like'
 export const buttonDel = '.place__del'
 export const selForCreateLike = 'place-like'
 export const selForDelCard = '.place'
+
+export const selPopupImgForImg = '.popup-img__img'
+export const selPopupImgForTitle = '.popup-img__title'

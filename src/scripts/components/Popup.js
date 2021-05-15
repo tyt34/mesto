@@ -1,32 +1,36 @@
-import {selPopupOpen, selPopupClose, classForPopupOpen, classPopupClose} from '../utils/constants.js';
+import {selPopupOpen, selPopupClose, classForPopupOpen} from '../utils/constants.js';
 
 export default class Popup {
   constructor(selector) {
-    this._selector = document.getElementById(selector)
+    this._popup = document.getElementById(selector.data)
+    this._handleEscClose = this._handleEscClose.bind(this)
   }
 
   open() {
-    this._selector.classList.add(classForPopupOpen)
+    this._popup.classList.add(classForPopupOpen)
     document.addEventListener('keydown', this._handleEscClose)
+    document.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains(classForPopupOpen)) {
+        this.close()
+      }
+    })
+
   }
 
   close() {
-    const openedPopup = document.querySelector(selPopupOpen)
-    openedPopup.classList.remove(classForPopupOpen)
+    this._popup.classList.remove(classForPopupOpen)
     document.removeEventListener('keydown', this._handleEscClose)
   }
 
   _handleEscClose() {
     if (event.key === 'Escape') {
       event.preventDefault()
-      const openedPopup = document.querySelector(selPopupOpen) // найти открытый попап
-      openedPopup.classList.remove(classForPopupOpen)
-      document.removeEventListener('keydown', this._handleEscClose);
+      this.close()
     }
   }
 
   setEventListeners() {
-    const buttonForClose = this._selector.querySelector(selPopupClose)
+    const buttonForClose = this._popup.querySelector(selPopupClose)
     buttonForClose.addEventListener('click', (evt) => {
       this.close()
 		});
