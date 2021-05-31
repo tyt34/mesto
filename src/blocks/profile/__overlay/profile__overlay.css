@@ -1,0 +1,28 @@
+.profile__overlay {
+  position: absolute;
+  height: 120px;
+  width: 120px;
+  /*margin-top: 38.25px;*/
+  border-radius: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgba(0, 0, 0);
+  opacity: 0;
+  transition: opacity 1.0s;
+  -webkit-transition: opacity 1.0s;
+  -o-transition: opacity 1.0s;
+  -moz-transition: opacity 1.0s;
+
+}
+
+.profile__container:hover .profile__overlay {
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 768px) {
+  .profile__overlay {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+  }
+}

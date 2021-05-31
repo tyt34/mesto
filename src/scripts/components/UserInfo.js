@@ -13,7 +13,8 @@ export default class UserInfo {
   }
 
   setUserInfo(newData) {
+    //console.log('!!! -> ',newData);
     this._titleElement.textContent = newData.name
-    this._subtitleElement.textContent = newData.kind
+    this._subtitleElement.textContent = newData.about
   }
 }

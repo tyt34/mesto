@@ -52,6 +52,8 @@ export const popupClasses = {
   edit: 'popup-edit',
   add: 'popup-add',
   like: 'place-like',
+  avatar: 'popup-avatar',
+  del: 'popup-del',
 }
 
 export const placeCardSelectors = {
@@ -60,11 +62,19 @@ export const placeCardSelectors = {
   like: '.place__like',
   delet: '.place__del',
   place: '.place',
+  amountLikes: '.place__num',
+  dislike: '.place-like'
 }
 
 export const popupImgSelectors = {
   picture: '.popup-img__img',
   title: '.popup-img__title'
+}
+
+export const option = {
+  token: '54e47a58-a3be-4854-bdb0-d150680efc4c',
+  cohortId: 'cohort-24',
+  myId: "34f519f4db31bcdefd2e9e7c"
 }
 
 export const classForTemplate = '.template'
@@ -78,11 +88,20 @@ export const buttonAddSave = document.getElementById('popup-add__save')
 export const inputAddTitle  = document.getElementById('popup-add-title')
 export const inputAddLink   = document.getElementById('popup-add-link')
 export const formAdd        = document.getElementById('popup-add__form')
-export const formEdit        = document.getElementById('popup-edit__form')
+export const formEdit       = document.getElementById('popup-edit__form')
+export const formAvatar     = document.getElementById('popup-avatar__form')
+export const buttonAvatarEdit = document.getElementById('popup-avatar__save')
+export const buttonDelInForm = document.getElementById('popup-del__save')
+export const buttonDelCard = document.getElementById('place__del')
 export const descrPopupImg = document.querySelector(popupImgSelectors.title)
 export const imgInPopupImg = document.querySelector(popupImgSelectors.picture)
 export const popupImg      = document.querySelector(popupClasses.img)
 export const cardListSelector = '.places'
+export const avatarInProfile = document.querySelector('.profile__img')
+export const buttonAvatar  = document.querySelector('.profile__edit')
+//export const buttonAvatarOpen  = document.querySelector('.profile-char__add')
+
+
 //export const selForCreateLike = 'place-like'
 //export const selTitle = '.profile-char__title'
 //export const selSubtitle = '.profile-char__subtitle'

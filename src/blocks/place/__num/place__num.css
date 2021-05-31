@@ -1,0 +1,11 @@
+.place__num {
+  color: #000000;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  margin-top: 3px;
+  margin-bottom: 0px;
+}

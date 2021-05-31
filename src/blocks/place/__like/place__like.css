@@ -5,8 +5,9 @@
   padding: 0;
   border: 0;
   min-width: 22px; /* без нее экран перекрывал иконку*/
-  margin-top: 25px;
-  margin-bottom: 31px;
+  /*margin-top: 25px;*/
+/*  margin-bottom: 31px;*/
+  margin-top: 0;
 }
 .place__like:active {
   /*background-image: url("../../../images/like_a.svg");*/
