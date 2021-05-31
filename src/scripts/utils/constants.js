@@ -99,24 +99,3 @@ export const popupImg      = document.querySelector(popupClasses.img)
 export const cardListSelector = '.places'
 export const avatarInProfile = document.querySelector('.profile__img')
 export const buttonAvatar  = document.querySelector('.profile__edit')
-//export const buttonAvatarOpen  = document.querySelector('.profile-char__add')
-
-
-//export const selForCreateLike = 'place-like'
-//export const selTitle = '.profile-char__title'
-//export const selSubtitle = '.profile-char__subtitle'
-//export const selPopup = '.popup'
-//export const selPopupOpen = '.popup_open'
-//export const selPopupClose = '.popup__close'
-//export const classPopupClose = 'popup__close'
-//export const classForPopupOpen     = 'popup_open'
-//export const popupImgSelector = 'popup-img'
-//export const popupEditSelector = 'popup-edit'
-//export const popupAddSelector = 'popup-add'
-//export const selPicTemplate = '.place__img'
-//export const selTextTemplate = '.place__title'
-//export const selButtonLike = '.place__like'
-//export const buttonDel = '.place__del'
-//export const selForDelCard = '.place'
-//export const selPopupImgForImg = '.popup-img__img'
-//export const selPopupImgForTitle = '.popup-img__title'

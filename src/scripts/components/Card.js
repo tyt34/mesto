@@ -1,12 +1,10 @@
 import {placeCardSelectors, popupClasses, option} from '../utils/constants.js';
-//import {myId} from '../utils/pass.js';
 
 import PopupWithSubmit from './PopupWithSubmit.js';
 
 
 export default class Card {
   constructor (newCard, renderPopup, handleDelClick, sendLike, sendDislike) {
-    //console.log(' 1) ',newCard)
     this._text = newCard.item.name
     this._item = newCard.item
     this._selector = newCard.classForTemplate
@@ -76,13 +74,11 @@ export default class Card {
   }
 
   _createLike(event) { // event уже не нужен // теперь опять нужен
-    console.log(' add --- > ');
     const target = event.target;
     target.classList.toggle(popupClasses.like)
   }
 
   _createDislike(event) { // event уже не нужен // теперь опять нужен
-    console.log(' rem  --- > ');
     const target = event.target;
     target.classList.remove(popupClasses.like)
   }

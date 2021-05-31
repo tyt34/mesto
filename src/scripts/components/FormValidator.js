@@ -1,19 +1,14 @@
 export default class FormValidator {
   constructor (conf, elemForValid) {
-    //console.log('0) ', conf)
-    //console.log('1) ', elemForValid)
-    //console.log(' -------------------------------------------');
     this._conf = conf
     this._elem = elemForValid
     this._inputsList = Array.from( // инпуты каждого элемента
       this._elem.querySelectorAll(this._conf.inputSelector)
     )
-    //console.log(' => ',this._conf.submitButtonSelector);
     this._buttonElement = this._elem.querySelector(this._conf.submitButtonSelector);
   }
 
   enableValidation() {
-    //console.log(this._elem)
     this._elem.addEventListener('submit', (event) => {
       event.preventDefault()
     })
@@ -37,12 +32,9 @@ export default class FormValidator {
   }
 
   _toggleButtonState = () => { // this._conf.inactiveButtonClass
-    //console.log();
     if (this._hasInvalidInput(this._inputsList) || this._allInputsEmpty()) {
-      //console.log('+');
       this.disableSubmitButton()
     } else {
-      //console.log('-');
       this.enableSubmitButton()
     }
   }
@@ -60,11 +52,9 @@ export default class FormValidator {
     const errorElement = this._elem.querySelector(`#${inputElement.id}-error`)
     errorElement.textContent = inputElement.validationMessage
     errorElement.classList.add(this._conf.errorClass)
-    //console.log(errorElement)
   }
 
   _checkInput = (inputElement) => {
-    //console.log('-> ', inputElement)
     if (inputElement.validity.valid) {
       this._hideInputError(inputElement, this._conf.errorClass)
     } else {
@@ -73,10 +63,7 @@ export default class FormValidator {
   }
 
   enableSubmitButton = () => { // on button
-    //console.log(' ---> ') // popup-edit__save
-    //console.log(this._buttonElement)
     this._buttonElement.classList.remove(this._conf.inactiveButtonClass)
-    //console.log(this._conf.inactiveButtonClass);
     this._buttonElement.removeAttribute('disabled')
   }
 

@@ -2,9 +2,7 @@ import {popupSelectors, popupClasses} from '../utils/constants.js';
 
 export default class Popup {
   constructor(selector) {
-    //console.log(selector)
     this._popup = document.getElementById(selector.data)
-    //console.log(this._popup);
     this._handleEscClose = this._handleEscClose.bind(this)
     this._handleClose = this._handleClose.bind(this)
     this._handleCrossClose = this._handleCrossClose.bind(this)
@@ -30,9 +28,7 @@ export default class Popup {
   }
 
   _handleCrossClose() {
-    //console.log(' cross ');
     if (event.target.classList.contains(popupClasses.open)) {
-      //console.log(event)
       this.close()
     }
   }

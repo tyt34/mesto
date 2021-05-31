@@ -1,9 +1,7 @@
-//import {token, cohortId} from '../utils/pass.js'
 import {option} from '../utils/constants.js';
 
 export default class API {
   constructor(option, renderButtonEdit, renderButtonAvatar, renderButtonAdd, renderButtonDel) {
-    //this.word = word
     this._token = option.token
     this._cohortId = option.cohortId
 
@@ -85,7 +83,6 @@ export default class API {
   }
 
   getCardsFromServer() {
-    //console.log(this._url+this._cards);
     return fetch(this._url+this._cards, {
         headers: {
           authorization: this._token
@@ -113,14 +110,9 @@ export default class API {
       })
     }).then(
       (res) => {
-        //console.log(' 2) ',res);
         return res.json()
       }
-    )/*.then(
-      (res) => {
-        console.log(' 3) ', res);
-      }
-    )*/.catch( (err) => {
+    ).catch( (err) => {
       renderError(`Ошибка: ${err}`)
     }).finally( () => {
       this._renderButtonAdd(false)
@@ -146,7 +138,7 @@ export default class API {
   }
 
   sendLike(id) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-24/cards/likes/'+id, {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-24/cards/likes/'+id, { // почему то this._cards тут undifined
       method: 'PUT',
       headers: {
           authorization: this._token
@@ -161,7 +153,7 @@ export default class API {
   }
 
   sendDislike(id) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-24/cards/likes/'+id, {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-24/cards/likes/'+id, { // почему то this._cards тут undifined 
       method: 'DELETE',
       headers: {
           authorization: this._token
