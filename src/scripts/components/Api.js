@@ -1,7 +1,7 @@
 import {option} from '../utils/constants.js';
 
 export default class API {
-  constructor(option, renderButtonEdit, renderButtonAvatar, renderButtonAdd, renderButtonDel) {
+  constructor(option, renderButton) {
     this._token = option.token
     this._cohortId = option.cohortId
 
@@ -9,31 +9,39 @@ export default class API {
     this._me = '/v1/'+this._cohortId+'/users/me'
     this._ava = this._me+'/avatar'
     this._cards = '/v1/'+this._cohortId+'/cards'
-    this._likes = this._cards+'/likes/'
+    this._likes = this._url+this._cards+'/likes/'
+    this._renderButton   = renderButton
+  }
 
-    this._renderButtonEdit   = renderButtonEdit
-    this._renderButtonAvatar = renderButtonAvatar
-    this._renderButtonAdd    = renderButtonAdd
-    this._renderButtonDel    = renderButtonDel
+  _getResponseData(res) {
+    if (!res.ok) {
+      return Promise.reject(`Ошибка: ${res.status}`)
+    }
+    return res.json()
   }
 
   getNowData() {
     return fetch(this._url+this._me, {
+      headers: {
+        authorization: this._token
+      }
+    }).then(
+      (res) => this._getResponseData(res)
+    )
+  }
+
+  getCardsFromServer() {
+    return fetch(this._url+this._cards, {
         headers: {
           authorization: this._token
         }
-      }).then(
-        (res) => {
-          return res.json()
-        }
-      ).catch( (err) => {
-        renderError(`Ошибка: ${err}`)
-    })
+    }).then(
+      (res) => this._getResponseData(res)
+    )
   }
 
   changeAvatar(link) {
-    this._renderButtonAvatar(true)
-    fetch(this._url+this._ava, {
+    return fetch(this._url+this._ava, {
       method: 'PATCH',
       headers: {
         authorization: this._token,
@@ -43,22 +51,12 @@ export default class API {
         avatar: link.link
       })
     }).then(
-      (res) => {
-        return res.json()
-      }
-    ).then(
-      (res) => {
-      }
-    ).catch( (err) => {
-      renderError(`Ошибка: ${err}`)
-    }).finally( () => {
-      this._renderButtonAvatar(false)
-    })
+      (res) => this._getResponseData(res)
+    )
   }
 
   loadProfile(obj) {
-    this._renderButtonEdit(true)
-    fetch(this._url+this._me, {
+    return fetch(this._url+this._me, {
       method: 'PATCH',
       headers: {
         authorization: this._token,
@@ -69,35 +67,11 @@ export default class API {
         about: obj.about,
       })
     }).then(
-      (res) => {
-        return res.json()
-      }
-    ).then(
-      (res) => {
-      }
-    ).catch( (err) => {
-      renderError(`Ошибка: ${err}`)
-    }).finally( () => {
-      this._renderButtonEdit(false)
-    })
-  }
-
-  getCardsFromServer() {
-    return fetch(this._url+this._cards, {
-        headers: {
-          authorization: this._token
-        }
-      }).then(
-        (res) => {
-          return res.json()
-        }
-      ).catch( (err) => {
-        renderError(`Ошибка: ${err}`)
-    })
+      (res) => this._getResponseData(res)
+    )
   }
 
   loadNewCard(obj) {
-    this._renderButtonAdd(true)
     return fetch(this._url+this._cards, {
       method: 'POST',
       headers: {
@@ -109,61 +83,40 @@ export default class API {
         link: obj.link,
       })
     }).then(
-      (res) => {
-        return res.json()
-      }
-    ).catch( (err) => {
-      renderError(`Ошибка: ${err}`)
-    }).finally( () => {
-      this._renderButtonAdd(false)
-    })
+      (res) => this._getResponseData(res)
+    )
   }
 
   delCard(id) {
-    this._renderButtonDel(true)
     return fetch(this._url+this._cards+'/'+id, {
       method: 'DELETE',
       headers: {
           authorization: this._token
         }
       }).then(
-        (res) => {
-          return res.json()
-        }
-      ).catch( (err) => {
-        renderError(`Ошибка: ${err}`)
-    }).finally( () => {
-      this._renderButtonDel(false)
-    })
+        (res) => this._getResponseData(res)
+      )
   }
 
   sendLike(id) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-24/cards/likes/'+id, { // почему то this._cards тут undifined
+    return fetch(this._likes+id, {
       method: 'PUT',
       headers: {
-          authorization: this._token
-        }
-      }).then(
-        (res) => {
-          return res.json()
-        }
-      ).catch( (err) => {
-        renderError(`Ошибка: ${err}`)
-    })
+        authorization: this._token
+      }
+    }).then(
+      (res) => this._getResponseData(res)
+    )
   }
 
   sendDislike(id) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-24/cards/likes/'+id, { // почему то this._cards тут undifined 
+    return fetch(this._likes+id, {
       method: 'DELETE',
       headers: {
-          authorization: this._token
-        }
-      }).then(
-        (res) => {
-          return res.json()
-        }
-      ).catch( (err) => {
-        renderError(`Ошибка: ${err}`)
-    })
+        authorization: this._token
+      }
+    }).then(
+      (res) => this._getResponseData(res)
+    )
   }
 }

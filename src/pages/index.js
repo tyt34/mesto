@@ -18,18 +18,22 @@ import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithSubmit from '../scripts/components/PopupWithSubmit.js';
 
 /* START CLASS */
-const api = new API(option, renderButtonEdit, renderButtonAvatar, renderButtonAdd, renderButtonDel)
+const api = new API(option, renderButton)
 const defaultCardList = new Section({
   renderer: (item) => {
     defaultCardList.addItem(createCard(item))
   }
 }, cardListSelector)
 
-const cardsOnServer = api.getCardsFromServer()
-const allCards = cardsOnServer.then((res) => {
-  defaultCardList.renderItems(res)
-  return res
-})
+Promise.all(
+  [api.getCardsFromServer(),api.getNowData()]
+).then( (values) => {
+  defaultCardList.renderItems(values[0])
+  userInfo.setUserInfo(values[1])
+  avatarInProfile.src = values[1].avatar
+}).catch(
+  (err) => console.log(err)
+)
 
 const profileFormValidator = new FormValidator(validationConfig, formEdit)
 profileFormValidator.enableValidation()
@@ -44,7 +48,14 @@ const popupForEdit = new PopupWithForm({
   data: popupClasses.edit,
   renderer: (item) => {
     userInfo.setUserInfo(item)
-    api.loadProfile(item)
+    renderButton(buttonEditSave, true, 'Сохранить', 'Сохранение...')
+    const newProfile = api.loadProfile(item)
+    newProfile.catch( (err) => {
+      console.log(err)
+    }).finally( () => {
+      popupForEdit.close()
+      renderButton(buttonEditSave, false, 'Сохранить', 'Сохранение...')
+    })
   }
 })
 popupForEdit.setEventListeners()
@@ -62,14 +73,20 @@ const popupForAdd = new PopupWithForm({
     item.likes = []
     item.owner = {}
     item.owner._id = option.myId
+    renderButton(buttonAddSave, true, 'Создать', 'Создание...')
     const newCard = api.loadNewCard(item)
     newCard.then(
       (res) => {
         item._id = res._id
         defaultCardList.prependItem(createCard(item))
       }
-    )
-    addCardFromValidator.disableSubmitButton()
+    ).catch( (err) => {
+      console.log(err)
+    }).finally( () => {
+      popupForAdd.close()
+      renderButton(buttonAddSave, false, 'Создать', 'Создание...')
+      addCardFromValidator.disableSubmitButton()
+    })
   }
 })
 popupForAdd.setEventListeners()
@@ -78,10 +95,15 @@ buttonAddOpen.addEventListener('click', () => popupForAdd.open())
 const popupForAvatar = new PopupWithForm({
   data: popupClasses.avatar,
   renderer: (item) => {
-    api.changeAvatar(item)
-    console.log(' -=> ')
-    avatarFormValidator.disableSubmitButton()
-    updateProfile()
+    renderButton(buttonAvatarEdit, true, 'Сохранить', 'Сохранение...')
+    const newAva = api.changeAvatar(item)
+    newAva.catch(
+      (err) => console.log(err)
+    ).finally( () => {
+      popupForAvatar.close()
+      renderButton(buttonAvatarEdit, false, 'Сохранить', 'Сохранение...')
+      avatarFormValidator.disableSubmitButton()
+    })
   }
 })
 popupForAvatar.setEventListeners()
@@ -111,14 +133,16 @@ function handleDelClick(id, card) {
 }
 
 function handlePopupConfirm(id, card) {
+  renderButton(buttonDelInForm, true, 'Да', 'Удаление...')
   api.delCard(id).then(()=> {
       card.deleteCard()
       popupForDel.close()
-    })
-    .catch((err) => {
-      console.log(err);
-      popupForDel.close();
-    });
+  }).catch( (err) => {
+      console.log(err)
+      popupForDel.close()
+  }).finally( () => {
+    renderButton(buttonDelInForm, false, 'Да', 'Удаление...')
+  })
 }
 
 function createCard(item) { // функция по взаимодействию с классом по созданию карточки
@@ -134,51 +158,33 @@ function createCard(item) { // функция по взаимодействию 
       openPopupImg(item.name, item.link)
     },
     handleDelClick,
-    api.sendLike,
-    api.sendDislike
+    handleLikeClick
   )
   return card.createNewCard()
 }
 
-function updateProfile() {
-  const textInProfile = api.getNowData()
-  textInProfile.then( (res) => {
-    userInfo.setUserInfo(res)
-    avatarInProfile.src = res.avatar
-    return res
-  })
-}
-
-function renderButtonEdit(isLoading) {
+function renderButton(button, isLoading, text, answer) {
   if (isLoading) {
-    buttonEditSave.textContent = 'Сохранение...'
+    button.textContent = answer
   } else {
-    buttonEditSave.textContent = 'Сохранить'
+    button.textContent = text
   }
 }
 
-function renderButtonAvatar(isLoading) {
-  if (isLoading) {
-    buttonAvatarEdit.textContent = 'Сохранение...'
+function handleLikeClick(id, statusLike, card) {
+  if (statusLike) {
+    api.sendDislike(id)
+    .then( (res) => {
+      card.setLikes(res.likes)
+    }).catch(
+      (err) => console.log(err)
+    )
   } else {
-    buttonAvatarEdit.textContent = 'Сохранить'
+    api.sendLike(id)
+    .then( (res) => {
+      card.setLikes(res.likes)
+    }).catch(
+      (err) => console.log(err)
+    )
   }
 }
-
-function renderButtonAdd(isLoading) {
-  if (isLoading) {
-    buttonAddSave.textContent = 'Создание...'
-  } else {
-    buttonAddSave.textContent = 'Создать'
-  }
-}
-
-function renderButtonDel(isLoading) {
-  if (isLoading) {
-    buttonDelInForm.textContent = 'Удаление...'
-  } else {
-    buttonDelInForm.textContent = 'Да'
-  }
-}
-
-updateProfile()

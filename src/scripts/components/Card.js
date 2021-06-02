@@ -1,10 +1,9 @@
 import {placeCardSelectors, popupClasses, option} from '../utils/constants.js';
-
 import PopupWithSubmit from './PopupWithSubmit.js';
-
+import API from './PopupWithSubmit.js';
 
 export default class Card {
-  constructor (newCard, renderPopup, handleDelClick, sendLike, sendDislike) {
+  constructor (newCard, renderPopup, handleDelClick, handleLikeClick) {
     this._text = newCard.item.name
     this._item = newCard.item
     this._selector = newCard.classForTemplate
@@ -13,8 +12,7 @@ export default class Card {
     this._popupImg = newCard.popupImg
     this._renderPopup = renderPopup
     this._handleDelClick = handleDelClick
-    this._sendLike = sendLike
-    this._sendDislike = sendDislike
+    this._handleLikeClick = handleLikeClick
     this._id = newCard.item._id
   }
 
@@ -25,14 +23,9 @@ export default class Card {
     this._delete = this.newItem.querySelector(placeCardSelectors.delet)
 
     this.picTemplate = this.newItem.querySelector(placeCardSelectors.picture)
-    this.amountLikes = this.newItem.querySelector(placeCardSelectors.amountLikes)
-    this.amountLikes.textContent = this._item.likes.length
+    this._amountLikes = this.newItem.querySelector(placeCardSelectors.amountLikes)
+    this._amountLikes.textContent = this._item.likes.length
 
-    for(let i = 0; i<this._item.likes.length; i++) {
-      if (this._item.likes[i]._id === option.myId) {
-        this.newItem.querySelector(placeCardSelectors.like).classList.add(popupClasses.like)
-      }
-    }
 
     this.textTemplate = this.newItem.querySelector(placeCardSelectors.text)
     this.picTemplate.src = this._item.link
@@ -49,22 +42,11 @@ export default class Card {
       this._delete.remove()
     }
 
-    if (this.buttonForDislike) {
-      this.buttonForDislike.addEventListener('click' , () => {
-        this._sendDislike(this._id).then( (res) => {
-          this.amountLikes.textContent = res.likes.length
-        })
-        this._createLike(event)
-      })
-    } else {
-      this.buttonLike.addEventListener('click', () => {
-        this._sendLike(this._id).then( (res) => {
-          this.amountLikes.textContent = res.likes.length
-        })
-        this._createLike(event)
-      })
-    }
+    this.buttonLike.addEventListener('click', () => {
+      this._handleLikeClick(this._id, this._checkLikes(), this)
+    })
 
+    this.setLikes(this._item.likes)
     this.picTemplate.addEventListener('click', this._renderPopup)
     return this.newItem
   }
@@ -73,18 +55,24 @@ export default class Card {
     return 'Изображение места: "'+specialWord+'"'
   }
 
-  _createLike(event) { // event уже не нужен // теперь опять нужен
-    const target = event.target;
-    target.classList.toggle(popupClasses.like)
-  }
-
-  _createDislike(event) { // event уже не нужен // теперь опять нужен
-    const target = event.target;
-    target.classList.remove(popupClasses.like)
-  }
-
   deleteCard = () => {
     this.newItem.remove()
     this.newItem = null // new
+  }
+
+  _checkLikes() {
+    return this._likes.some(like => {
+      return like._id === option.myId
+    })
+  }
+
+  setLikes(array) {
+    this._likes = array
+    this._amountLikes.textContent = array.length
+    if (this._checkLikes()) {
+      this.newItem.querySelector(placeCardSelectors.like).classList.add(popupClasses.like)
+    } else {
+      this.newItem.querySelector(placeCardSelectors.like).classList.remove(popupClasses.like)
+    }
   }
 }

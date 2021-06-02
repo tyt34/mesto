@@ -4,6 +4,7 @@ import {validationConfig} from '../utils/constants.js';
 export default class PopupWithForm extends Popup {
   constructor(selector) {
     super(selector)
+    //console.log(selector)
     this._handleFormSubmit = selector.renderer
     this._form = this._popup.querySelector(validationConfig.formSelector)
   }
@@ -22,8 +23,10 @@ export default class PopupWithForm extends Popup {
     const openedForm = this._popup.querySelector(validationConfig.formSelector)
     openedForm.addEventListener('submit', (evt) => {
       evt.preventDefault()
+      //console.log(this._getInputValues())
+      //console.log(this._handleFormSubmit)
       this._handleFormSubmit(this._getInputValues())
-      this.close()
+      //this.close()
     })
   }
 
