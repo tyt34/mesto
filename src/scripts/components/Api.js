@@ -1,7 +1,7 @@
 import {option} from '../utils/constants.js';
 
 export default class API {
-  constructor(option, renderButton) {
+  constructor(option) {
     this._token = option.token
     this._cohortId = option.cohortId
 
@@ -10,7 +10,6 @@ export default class API {
     this._ava = this._me+'/avatar'
     this._cards = '/v1/'+this._cohortId+'/cards'
     this._likes = this._url+this._cards+'/likes/'
-    this._renderButton   = renderButton
   }
 
   _getResponseData(res) {

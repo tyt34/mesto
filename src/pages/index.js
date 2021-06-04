@@ -30,7 +30,7 @@ Promise.all(
 ).then( (values) => {
   defaultCardList.renderItems(values[0])
   userInfo.setUserInfo(values[1])
-  avatarInProfile.src = values[1].avatar
+  userInfo.getNowAvatar(values[1].avatar)
 }).catch(
   (err) => console.log(err)
 )
@@ -47,13 +47,15 @@ avatarFormValidator.enableValidation()
 const popupForEdit = new PopupWithForm({
   data: popupClasses.edit,
   renderer: (item) => {
-    userInfo.setUserInfo(item)
     renderButton(buttonEditSave, true, 'Сохранить', 'Сохранение...')
     const newProfile = api.loadProfile(item)
-    newProfile.catch( (err) => {
+    newProfile.then( (res) => {
+      userInfo.setUserInfo(item)
+      popupForEdit.close()
+    })
+    .catch( (err) => {
       console.log(err)
     }).finally( () => {
-      popupForEdit.close()
       renderButton(buttonEditSave, false, 'Сохранить', 'Сохранение...')
     })
   }
@@ -79,13 +81,13 @@ const popupForAdd = new PopupWithForm({
       (res) => {
         item._id = res._id
         defaultCardList.prependItem(createCard(item))
+        popupForAdd.close()
+        addCardFromValidator.disableSubmitButton()
       }
     ).catch( (err) => {
       console.log(err)
     }).finally( () => {
-      popupForAdd.close()
       renderButton(buttonAddSave, false, 'Создать', 'Создание...')
-      addCardFromValidator.disableSubmitButton()
     })
   }
 })
@@ -97,12 +99,15 @@ const popupForAvatar = new PopupWithForm({
   renderer: (item) => {
     renderButton(buttonAvatarEdit, true, 'Сохранить', 'Сохранение...')
     const newAva = api.changeAvatar(item)
-    newAva.catch(
+    newAva.then( (res) => {
+      userInfo.getNowAvatar(res.avatar)
+      popupForAvatar.close()
+      avatarFormValidator.disableSubmitButton()
+    })
+    .catch(
       (err) => console.log(err)
     ).finally( () => {
-      popupForAvatar.close()
       renderButton(buttonAvatarEdit, false, 'Сохранить', 'Сохранение...')
-      avatarFormValidator.disableSubmitButton()
     })
   }
 })
@@ -139,7 +144,6 @@ function handlePopupConfirm(id, card) {
       popupForDel.close()
   }).catch( (err) => {
       console.log(err)
-      popupForDel.close()
   }).finally( () => {
     renderButton(buttonDelInForm, false, 'Да', 'Удаление...')
   })

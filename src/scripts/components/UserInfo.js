@@ -1,3 +1,5 @@
+import { avatarInProfile } from '../utils/constants.js';
+
 export default class UserInfo {
   constructor(selectors) {
     this._titleElement = document.querySelector(selectors.title)
@@ -15,5 +17,9 @@ export default class UserInfo {
   setUserInfo(newData) {
     this._titleElement.textContent = newData.name
     this._subtitleElement.textContent = newData.about
+  }
+
+  getNowAvatar(arg) {
+    avatarInProfile.src = arg
   }
 }

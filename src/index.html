@@ -5,10 +5,10 @@
 
     <link rel="shortcut icon" type="image/x-icon" href=<%=require('./images/favicon.ico')%>>
 
-<!--
+    <!--
     <link rel="shortcut icon" type="image/x-icon" href='./images/favicon.ico'>
     <link rel="stylesheet" href="./pages/index.css">
--->
+    -->
 
     <meta charset="UTF-8">
     <title>Mesto</title>
@@ -17,7 +17,8 @@
     <header class="header">
 
       <img class="header__logo" alt="Логотип сайта" src=<%=require('./images/logo.svg')%>>
-      <!--<img class="header__logo" src="./images/logo.svg" alt="Логотип сайта" >-->
+      <!--<img class="header__logo" src="./images/logo.svg" alt="Логотип сайта" >
+      -->
 
     </header>
 
@@ -26,8 +27,7 @@
         <div class="profile__container">
           <!--
           <img class="profile__img" alt="Изображение профиля" src='./images/load.gif'>
-          -->
-          <img class="profile__img" alt="Изображение профиля" src=<%=require('./images/load.gif')%>>
+          --><img class="profile__img" alt="Изображение профиля" src=<%=require('./images/load.gif')%>>
 
           <div class="profile__overlay">
             <button class="profile__edit" type="button"></button>
@@ -90,8 +90,8 @@
       <div class="popup-img__container">
 
         <img class="popup-img__img" alt="Test" src=<%=require('./images/logo.svg')%>>
-        <!--<img class="popup-img__img" src="./images/logo.svg" alt="Test">-->
-
+        <!--<img class="popup-img__img" src="./images/logo.svg" alt="Test">
+        -->
         <p class="popup-img__title">Test</p>
         <button id="popup-img__close" class="popup__close"></button>
       </div>
@@ -101,8 +101,8 @@
       <article class="place">
 
         <img class="place__img" alt="Test" src=<%=require('./images/logo.svg')%>>
-        <!--<img class="place__img" src="./images/logo.svg" alt="Test">-->
-
+        <!--<img class="place__img" src="./images/logo.svg" alt="Test">
+-->
         <button class="place__del" type="button"></button>
         <div class="place__option">
             <h2 class="place__title">Test</h2>
@@ -160,6 +160,6 @@
     <script src="./scripts/components/PopupWithSubmit.js" type="module"></script>
     <script src="./scripts/components/UserInfo.js" type="module"></script>
     <script src="./scripts/components/Api.js" type="module"></script>
-  -->
+    -->
   </body>
 </html>
